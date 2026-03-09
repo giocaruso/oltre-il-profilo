@@ -44,13 +44,13 @@
     <div id="home-hub">
         <div class="header">
             <h1>Oltre il Profilo</h1>
-            <p>Risorse Digitali per i lettori del manuale di Giovanni C.</p>
+            <p>Risorse Digitali per personale ATA, tecnici e aspiranti tecnici.</p>
         </div>
         <div class="grid">
             <div class="card" onclick="showSection('quiz-auth')">
                 <span class="icon">📝</span>
                 <h3>Simulatore Quiz</h3>
-                <p>Esercitati sulle 200 domande ufficiali del manoscritto.</p>
+                <p>L'assistente tecnico delle scuole: 200 Domande</p>
             </div>
             <div class="card disabled">
                 <span class="icon">🗂️</span>
@@ -69,7 +69,7 @@
         <button class="btn btn-outline" onclick="location.reload()">← Indietro</button>
         <div style="text-align:center; padding: 20px;">
             <h2>Sblocco Simulatore</h2>
-            <p>Per verificare il possesso del libro, inserisci la <strong>prima parola</strong> della spiegazione alla <strong>domanda n. 187</strong> del manuale:</p>
+            <p>Inserisci la <strong>prima parola</strong> della spiegazione alla <strong>domanda n. 187</strong> del manuale:</p>
             <input type="text" id="pass-word" placeholder="Parola segreta...">
             <br><br>
             <button class="btn" onclick="checkAuth()">Sblocca</button>
@@ -128,8 +128,8 @@
     let score = 0;
 
     // --- CONFIGURAZIONE ---
-    const SECRET_WORD = "bussola"; // <--- CAMBIA CON QUELLA DEL LIBRO (tutta minuscola)
-    const GOOGLE_URL = "INSERISCI_URL_GOOGLE_QUI"; // <--- METTI IL TUO URL DI GOOGLE
+    const SECRET_WORD = "passweb"; // <--- CAMBIA CON QUELLA DEL LIBRO (tutta minuscola)
+    const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbxyQUkxrfwyVsu2ws8ACqkRgJUhc_KQ5KoVDNys_sj0NUCOjEPGQ_GGOvm0uIACcAxZNw/exec"; // <--- METTI IL TUO URL DI GOOGLE
 
     function showSection(id) {
         document.querySelectorAll('.container > div').forEach(div => div.style.display = 'none');
