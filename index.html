@@ -263,3 +263,149 @@
         }
 
         function mescolaArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        async function loadQuizData() {
+            document.getElementById('quiz-setup').innerHTML = `
+                <h2 style="text-align: center; color: var(--secondary); margin-top: 50px;">Caricamento Simulatore in corso...</h2>
+            `;
+            showSection('quiz-setup');
+
+            try {
+                // Va a cercare il tuo file domande.json
+                const response = await fetch('domande.json');
+                if (!response.ok) throw new Error("File domande.json non trovato.");
+                
+                let data = await response.json();
+                
+                // Rimescola l'ordine delle domande
+                domandeQuiz = mescolaArray(data);
+                
+                // Rimescola le opzioni all'interno di ogni domanda
+                domandeQuiz.forEach(q => {
+                    let opzioniConIndice = q.opzioni.map((testo, index) => ({ testo, isCorretta: index === q.corretta }));
+                    opzioniConIndice = mescolaArray(opzioniConIndice);
+                    
+                    q.opzioniMescolate = opzioniConIndice.map(opt => opt.testo);
+                    q.indiceCorrettoMescolato = opzioniConIndice.findIndex(opt => opt.isCorretta);
+                });
+
+                // Avvia la prima domanda
+                mostraDomanda();
+
+            } catch (error) {
+                document.getElementById('quiz-setup').innerHTML = `
+                    <button onclick="location.reload()" style="cursor:pointer; background:none; border:none; color:var(--primary); font-weight:bold; margin-bottom: 20px;">← Torna all'Hub</button>
+                    <h2 style="color: #ff6b6b; text-align: center;">Errore di caricamento</h2>
+                    <p style="text-align: center;">Non riesco a trovare il file <strong>domande.json</strong>. Assicurati di averlo caricato nella stessa cartella di index.html su GitHub!</p>
+                `;
+            }
+        }
+
+        function mostraDomanda() {
+            const q = domandeQuiz[domandaCorrente];
+            const quizContainer = document.getElementById('quiz-setup');
+            
+            let html = `
+                <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+                    <button onclick="location.reload()" style="cursor:pointer; background:none; border:none; color:var(--primary); font-weight:bold; margin-bottom: 20px;">← Esci dal Quiz</button>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bg); padding-bottom: 10px; margin-bottom: 20px;">
+                        <span style="font-weight: bold; color: var(--secondary);">Domanda ${domandaCorrente + 1} di ${domandeQuiz.length}</span>
+                        <span style="background: var(--bg); padding: 5px 10px; border-radius: 20px; font-size: 0.9rem;">Punteggio: ${punteggio}</span>
+                    </div>
+
+                    <h3 style="font-size: 1.3rem; margin-bottom: 30px;">${q.domanda}</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+            `;
+
+            q.opzioniMescolate.forEach((opzione, index) => {
+                html += `
+                    <button class="btn-opzione" onclick="verificaRisposta(${index})" 
+                            style="background: white; border: 2px solid var(--bg); padding: 15px; border-radius: 8px; text-align: left; cursor: pointer; font-size: 1.05rem; transition: 0.2s;">
+                        ${opzione}
+                    </button>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            quizContainer.innerHTML = html;
+        }
+
+        function verificaRisposta(indiceSelezionato) {
+            const q = domandeQuiz[domandaCorrente];
+            const isCorretta = (indiceSelezionato === q.indiceCorrettoMescolato);
+            
+            // Salva la risposta per il riepilogo
+            risposteUtente.push({
+                domanda: q.domanda,
+                corretta: isCorretta,
+                spiegazione: q.spiegazione
+            });
+
+            if (isCorretta) {
+                punteggio++;
+            }
+
+            // Passa alla prossima domanda o mostra il risultato
+            domandaCorrente++;
+            if (domandaCorrente < domandeQuiz.length) {
+                mostraDomanda();
+            } else {
+                mostraRisultato();
+            }
+        }
+
+        function mostraRisultato() {
+            const quizContainer = document.getElementById('quiz-setup');
+            const percentuale = Math.round((punteggio / domandeQuiz.length) * 100);
+            
+            let messaggio = "";
+            if(percentuale >= 80) messaggio = "Ottimo lavoro! La tua preparazione è solida.";
+            else if(percentuale >= 60) messaggio = "Buon risultato, ma c'è margine di miglioramento.";
+            else messaggio = "Hai bisogno di ripassare un po' di più il manuale.";
+
+            let html = `
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <h2 style="color: var(--secondary); font-size: 2.5rem; margin-bottom: 10px;">Quiz Completato!</h2>
+                    <p style="font-size: 1.5rem; margin-top: 0;">Hai totalizzato <strong>${punteggio}</strong> su ${domandeQuiz.length} (${percentuale}%)</p>
+                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 40px;">${messaggio}</p>
+                    
+                    <button class="btn" onclick="location.reload()" style="max-width: 300px; margin-bottom: 40px;">Torna all'Hub</button>
+            `;
+
+            // Genera il riepilogo degli errori con le spiegazioni
+            const errori = risposteUtente.filter(r => !r.corretta);
+            
+            if(errori.length > 0) {
+                html += `
+                    <div style="text-align: left; background: var(--bg); padding: 30px; border-radius: 12px;">
+                        <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 2px solid white; padding-bottom: 10px;">Riepilogo Errori e Spiegazioni</h3>
+                `;
+                errori.forEach((err, i) => {
+                    html += `
+                        <div style="margin-bottom: 25px;">
+                            <p style="font-weight: bold; margin-bottom: 5px;">${i+1}. ${err.domanda}</p>
+                            <p style="margin-top: 0; color: #d32f2f; font-size: 0.95rem;"><em>Spiegazione:</em> ${err.spiegazione}</p>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            }
+
+            html += `</div>`;
+            quizContainer.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
