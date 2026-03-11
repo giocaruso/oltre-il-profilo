@@ -62,7 +62,7 @@
         }
 
         .red-mark { color: #ff6b6b; font-weight: bold; padding-bottom: 2px; }
-        .bold-tech { font-weight: 800; color: #fff900; }
+        .bold-tech { font-weight: 800; color: #fff; font-style: italic; }
 
         .container { flex-grow: 1; max-width: 1000px; margin: -40px auto 40px; padding: 0 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
@@ -114,24 +114,27 @@
             </a>
             <div style="flex:1;">
                 <h1>Hub Assistente Tecnico ATA</h1>
-                <p>Supporto digitale e risorse interattive per l'AT di laboratorio. <br> <span class="bold-tech">Realizzato da un Assistente tecnico di Informatica delle scuole superiori</span>.</p>
+                <p>Supporto digitale e risorse interattive per l'AT di laboratorio. <br> <span class="bold-tech">Realizzato da un Assistente tecnico di Informatica</span>.</p>
             </div>
         </div>
     </header>
 
     <div class="container">
+        
         <div id="home-hub">
             <div class="grid">
                 <div class="card" onclick="window.open('https://forms.gle/6qDLEak6GL7SiVSM6', '_blank')">
                     <span style="font-size:2.5rem;">💻</span>
                     <h3>50 Domande aperte a tutti</h3>
-                    <p>Check sulle conoscenze operative, normative e tecnologiche richieste nel mondo ATA moderno.</p>
+                    <p>Un primo check sulle conoscenze operative, normative e tecnologiche richieste nel mondo ATA moderno.</p>
                 </div>
+                
                 <div class="card" style="border: 2px solid var(--primary);" onclick="showSection('quiz-auth')">
                     <span style="font-size:2.5rem;">📝</span>
-                    <h3>Quiz dell'AT</h3>
+                    <h3>Quiz dell'Assistente Tecnico</h3>
                     <p>200 Domande dal manuale. <span class="red-mark">DigComp 2.2</span>, casi pratici di gestione hardware/software derivati dalla reale esperienza scolastica.</p>
                 </div>
+                
                 <div class="card" onclick="showSection('newsletter-section')">
                     <span style="font-size:2.5rem;">🔔</span>
                     <h3>Resta Aggiornato</h3>
@@ -162,6 +165,39 @@
                 </div>
             </div>
         </div>
+
+        <div id="quiz-auth" class="section">
+            <button onclick="location.reload()" style="cursor:pointer; background:none; border:none; color:var(--primary); font-weight:bold; margin-bottom: 20px;">← Torna all'Hub</button>
+            <div style="text-align:center; padding: 20px; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: var(--secondary);">Simulatore 200 Quiz</h2>
+                
+                <p style="font-size: 1.05rem; margin-bottom: 25px;">
+                    Questa sezione contiene il simulatore interattivo con i <strong>200 quiz</strong> tratti dal manuale <em>"Quiz dell'Assistente Tecnico"</em> (il primo manuale specifico dedicato alla preparazione del nostro profilo).
+                </p>
+                
+                <div style="background: var(--bg); padding: 25px; border-radius: 12px; border: 1px dashed var(--primary); margin-bottom: 25px; text-align: left;">
+                    <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Come accedere:</p>
+                    <p style="margin-bottom: 0;">Prendi la tua copia del manuale, vai alla sezione delle soluzioni, cerca la spiegazione relativa alla <strong>domanda n. 187</strong> e inserisci qui sotto la <strong>prima parola</strong> esatta di quel testo.</p>
+                </div>
+                
+                <input type="text" id="pass-word" placeholder="Inserisci la parola segreta..." style="padding:15px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:300px; margin-bottom: 15px;">
+                <br>
+                <button class="btn" onclick="checkAuth()" style="max-width:300px;">Sblocca Simulatore</button>
+            </div>
+        </div>
+
+        <div id="quiz-setup" class="section" style="text-align: center;">
+            <button onclick="location.reload()" style="cursor:pointer; background:none; border:none; color:var(--primary); font-weight:bold; margin-bottom: 20px;">← Torna all'Hub</button>
+            <h2 style="color: var(--secondary);">Simulatore Sbloccato</h2>
+            <p>Qui potrai inserire il motore delle 200 domande.</p>
+        </div>
+
+        <div id="newsletter-section" class="section" style="text-align: center;">
+            <button onclick="location.reload()" style="cursor:pointer; background:none; border:none; color:var(--primary); font-weight:bold; margin-bottom: 20px;">← Torna all'Hub</button>
+            <h2 style="color: var(--secondary);">Resta Aggiornato</h2>
+            <p>Sezione in costruzione...</p>
+        </div>
+
     </div>
 
     <footer class="footer">
@@ -177,18 +213,4 @@
     </footer>
 
     <script>
-        const SECRET_WORD = "passweb"; 
-        const GOOGLE_URL = "https://script.google.com/macros/s/AKfycbxyQUkxrfwyVsu2ws8ACqkRgJUhc_KQ5KoVDNys_sj0NUCOjEPGQ_GGOvm0uIACcAxZNw/exec";
-        function showSection(id) {
-            document.getElementById('home-hub').style.display = 'none';
-            document.querySelector('.hero').style.display = 'none';
-            document.getElementById(id).style.display = 'block';
-        }
-        function checkAuth() {
-            const val = document.getElementById('pass-word').value.toLowerCase().trim();
-            if(val === SECRET_WORD) showSection('quiz-setup');
-            else alert("Parola non corretta!");
-        }
-    </script>
-</body>
-</html>
+        // "
