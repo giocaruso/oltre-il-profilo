@@ -18,7 +18,7 @@
                 <p style="margin-bottom: 10px;">Supporto digitale e risorse interattive per l'AT di laboratorio. <br> <span class="bold-tech">Realizzato da un Assistente tecnico di Informatica</span>.</p>
                 <div class="live-update-badge" title="Sistema in continuo aggiornamento">
                     <span class="pulse-dot"></span>
-                    <span>Aggiornamento 03/2026: Inserito Quiz Antincendio</span>
+                    <span>Aggiornamento 03/2026: Inserito Quiz Antincendio Livello 2</span>
                 </div>
             </div>
         </div>
@@ -355,6 +355,7 @@
 
             </div>
         </div>
+
 		<div id="corsi-formazione" class="section">
             <button onclick="showSection('home-hub')" class="btn-back-hub">← Torna all'Hub</button>
             <div style="max-width: 800px; margin: 0 auto;">
@@ -380,29 +381,27 @@
                     <p style="margin-top: 0; margin-bottom: 0;">Se accetti l'incarico, la scuola ti farà frequentare corsi specifici (e relativi aggiornamenti periodici) per diventare <strong>Addetto al Primo Soccorso</strong> o <strong>Addetto Antincendio</strong>. Sono competenze preziose che arricchiscono il tuo curriculum professionale e personale.</p>
                 </div>
 
-                <div style="background: #fff5f5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ff6b6b; position: relative;">
+                <div style="background: #fff5f5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ff6b6b; position: relative; text-align: center;">
                     <div style="position: absolute; top: -15px; left: 30px; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
-                        Materiale Didattico
+                        Simulatore Ufficiale
                     </div>
-                    <h3 style="color: #c62828; margin-top: 10px; margin-bottom: 15px; font-size: 1.4rem;">🔥 Focus: Area Antincendio</h3>
-                    <p style="margin-top: 0; margin-bottom: 15px; font-size: 1.05rem; color: #333; line-height: 1.6; font-weight: bold;">
-                        Corsi per addetti antincendio di cui al D.Lgs. 81/08 e al D.M. 2/9/2021
-                    </p>
-                    <p style="margin-top: 0; margin-bottom: 20px; font-size: 1.05rem; color: #555; line-height: 1.6;">
-                        In questa sezione stiamo raccogliendo i <strong>supporti didattici per lo svolgimento dell’attività formativa</strong> relativi ai <strong>Corsi di tipo 2 - FOR</strong> (attività a rischio di incendio medio).
+                    
+                    <h3 style="color: #c62828; margin-top: 10px; margin-bottom: 15px; font-size: 1.6rem;">🔥 Focus: Area Antincendio</h3>
+                    <p style="margin-top: 0; margin-bottom: 25px; font-size: 1.05rem; color: #333; line-height: 1.6;">
+                        Mettiti alla prova con le domande ufficiali per gli addetti antincendio (Rischio Medio <strong>2-FOR</strong>, ai sensi del D.Lgs. 81/08 e D.M. 2/9/2021).
                     </p>
                     
-                    <div style="background: white; padding: 15px; border-radius: 8px; border: 1px dashed #ff6b6b; text-align: center;">
-                        <span style="font-size: 2rem;">🚧</span>
-                        <p style="margin: 10px 0 0 0; font-weight: bold; color: #c62828;">Quiz Antincendio in arrivo!</p>
-                        <p style="margin: 0; font-size: 0.9rem; color: #666;">Stiamo integrando le schede di simulazione per prepararsi all'esame.</p>
+                    <div style="background: white; padding: 25px; border-radius: 8px; border: 1px dashed #ff6b6b; max-width: 400px; margin: 0 auto;">
+                        <p style="font-weight: bold; margin-top: 0; color: #c62828;">Inserisci la tua email per ricevere futuri aggiornamenti (opzionale) e inizia subito.</p>
+                        <input type="email" id="email-antincendio" placeholder="Tua email (opzionale)..." style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; box-sizing: border-box; margin-bottom: 15px;">
+                        
+                        <button class="btn" style="width: 100%; background-color: #ff6b6b; margin-bottom: 15px;" onclick="startPublicQuiz('antincendio-lv2.json')">Avvia Simulatore Antincendio</button>
+                        
+                        <span style="font-size: 0.9rem; color: #777; cursor: pointer; text-decoration: underline;" onclick="startPublicQuiz('antincendio-lv2.json')">Salta l'iscrizione e vai al test</span>
                     </div>
                 </div>
                 
                 <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-                    <p style="font-size: 1.1rem; color: var(--secondary); font-weight: bold; margin-bottom: 15px;">Vuoi restare sempre aggiornato su normative e concorsi ATA?</p>
-                    <button class="btn" style="width: auto; padding: 10px 25px; font-size: 1rem; margin-bottom: 30px;" onclick="showSection('newsletter-section')">📩 Iscriviti alla Newsletter</button>
-                    
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                         <button class="btn-back-hub" style="margin-bottom: 0;" onclick="showSection('avanzamento-carriera')">← Avanzamento Carriera</button>
                         <button class="btn" style="width: auto; margin-bottom: 0;" onclick="showSection('area-test')">Area Test e Simulatori →</button>
@@ -411,6 +410,7 @@
 
             </div>
         </div>
+
         <div id="newsletter-section" class="section" style="max-width: 600px; margin: 0 auto; text-align: center;">
             <button onclick="location.reload()" class="btn-back-hub" style="float: left;">← Torna all'Hub</button>
             <div style="clear: both;"></div>
