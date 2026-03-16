@@ -2,19 +2,59 @@ const SECRET_HASH = "cGFzc3dlYg==";
         let databaseDomandeTotale = []; // Contiene tutte le domande scaricate
         let domandeQuiz = [], domandaCorrente = 0, punteggio = 0, risposteUtente = []; 
 
-        function showSection(id) {
-            document.getElementById('home-hub').style.display = 'none';
-            document.querySelector('.hero').style.display = 'none';
-            document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
+        // ==========================================
+        // --- NUOVO MOTORE A "CASSETTI" (SPA) ---
+        // ==========================================
+
+        async function caricaPagina(urlFile) {
+            try {
+                const response = await fetch(urlFile);
+                if (!response.ok) throw new Error("Pagina non trovata: " + urlFile);
+                const html = await response.text();
+                
+                // 1. Nascondi la vetrina principale
+                document.getElementById('home-hub').style.display = 'none';
+                
+                // 2. Nascondi l'header per fare spazio alla lettura
+                const hero = document.querySelector('.hero');
+                if(hero) hero.style.display = 'none';
+                
+                // 3. Inietta il codice pescato nel "cassetto"
+                const contenitore = document.getElementById('contenuto-pagina');
+                contenitore.innerHTML = html;
+                
+                // 4. Riporta la visuale in cima
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (e) {
+                console.error(e);
+                alert("Errore nel caricamento. Attenzione: se apri il file direttamente dal computer, il browser blocca per sicurezza il caricamento di altre pagine. Mettilo online su GitHub e funzionerà perfettamente!");
+            }
+        }
+
+        function tornaAllHub() {
+            // 1. Svuota il cassetto
+            const contenitore = document.getElementById('contenuto-pagina');
+            contenitore.innerHTML = '';
+            
+            // 2. Mostra di nuovo la vetrina principale
+            document.getElementById('home-hub').style.display = 'block';
+            
+            // 3. Fai riapparire l'header con la foto
+            const hero = document.querySelector('.hero');
+            if(hero) hero.style.display = 'block';
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
+
+        // ==========================================
+        // --- FUNZIONI NEWSLETTER E SICUREZZA ---
+        // ==========================================
+
         function checkAuth() {
             const val = document.getElementById('pass-word').value.toLowerCase().trim();
             if(btoa(val) === SECRET_HASH) {
-                // Se la password è corretta, carica il file del libro
-                loadQuizData('domande.json');
+                // Percorso aggiornato: cerca nella cartella json/
+                loadQuizData('json/domande.json');
             } else {
                 alert("Parola non corretta! Verifica sul manuale.");
             }
@@ -41,12 +81,10 @@ const SECRET_HASH = "cGFzc3dlYg==";
             });
         }
 
-        // --- NUOVA FUNZIONE: AVVIO QUIZ PUBBLICO (SENZA PASSWORD) ---
         async function startPublicQuiz(jsonUrl) {
             const emailInput = document.getElementById('email-antincendio');
             const email = emailInput ? emailInput.value : '';
 
-            // Se l'utente ha inserito un'email valida, inviala silenziosamente a Google Script
             if (email && email.includes('@')) {
                 fetch("https://script.google.com/macros/s/AKfycbxyQUkxrfwyVsu2ws8ACqkRgJUhc_KQ5KoVDNys_sj0NUCOjEPGQ_GGOvm0uIACcAxZNw/exec", {
                     method: 'POST', mode: 'no-cors',
@@ -55,9 +93,12 @@ const SECRET_HASH = "cGFzc3dlYg==";
                 }).catch(e => console.log("Invio email in background non riuscito"));
             }
 
-            // Procedi subito a caricare il file JSON passato alla funzione
             loadQuizData(jsonUrl);
         }
+
+        // ==========================================
+        // --- MOTORE DEI QUIZ ---
+        // ==========================================
 
         function mescolaArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -67,7 +108,6 @@ const SECRET_HASH = "cGFzc3dlYg==";
             return array;
         }
 
-        // Funzione di caricamento generica (ora accetta il nome del file da caricare)
         async function loadQuizData(fileDaCaricare) {
             try {
                 const response = await fetch(fileDaCaricare);
@@ -81,28 +121,30 @@ const SECRET_HASH = "cGFzc3dlYg==";
                     alert("Il file " + fileDaCaricare + " è vuoto o formattato male.");
                 }
             } catch (e) { 
-                alert("Errore nel caricamento del file " + fileDaCaricare + ". Se sei sul tuo PC, ricorda che alcuni browser bloccano il caricamento dei JSON locali."); 
+                alert("Errore nel caricamento del file " + fileDaCaricare + ". Usalo online su GitHub!"); 
                 console.error(e);
             }
         }
 
         function mostraSceltaBlocchi() {
-            showSection('quiz-setup');
             const totali = databaseDomandeTotale.length;
             
-            document.getElementById('quiz-setup').innerHTML = `
-                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                    <button onclick="location.reload()" class="btn-back-hub" style="float:left;">← Esci all'Hub</button>
-                    <div style="clear: both;"></div>
-                    
-                    <h2 style="color: var(--secondary); margin-bottom: 20px; font-size: 2rem;">Quante domande vuoi affrontare?</h2>
-                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">Il database contiene ${totali} domande in totale. Scegli un blocco per la tua simulazione:</p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
-                        <button class="btn" onclick="preparaQuiz(10)" style="font-size: 1.1rem;">Test Rapido (10 Domande)</button>
-                        <button class="btn" onclick="preparaQuiz(20)" style="font-size: 1.1rem;">Simulazione Breve (20 Domande)</button>
-                        <button class="btn" onclick="preparaQuiz(50)" style="font-size: 1.1rem;">Simulazione Media (50 Domande)</button>
-                        <button class="btn" onclick="preparaQuiz(${totali})" style="font-size: 1.1rem; background-color: var(--secondary);">Simulazione Completa (Tutte)</button>
+            // Inietta direttamente il quiz nel cassetto senza usare vecchie sezioni
+            document.getElementById('contenuto-pagina').innerHTML = `
+                <div class="section" style="display: block;">
+                    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                        <button onclick="tornaAllHub()" class="btn-back-hub" style="float:left;">← Esci all'Hub</button>
+                        <div style="clear: both;"></div>
+                        
+                        <h2 style="color: var(--secondary); margin-bottom: 20px; font-size: 2rem;">Quante domande vuoi affrontare?</h2>
+                        <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">Il database contiene ${totali} domande in totale. Scegli un blocco per la tua simulazione:</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
+                            <button class="btn" onclick="preparaQuiz(10)" style="font-size: 1.1rem;">Test Rapido (10 Domande)</button>
+                            <button class="btn" onclick="preparaQuiz(20)" style="font-size: 1.1rem;">Simulazione Breve (20 Domande)</button>
+                            <button class="btn" onclick="preparaQuiz(50)" style="font-size: 1.1rem;">Simulazione Media (50 Domande)</button>
+                            <button class="btn" onclick="preparaQuiz(${totali})" style="font-size: 1.1rem; background-color: var(--secondary);">Simulazione Completa (Tutte)</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -129,24 +171,26 @@ const SECRET_HASH = "cGFzc3dlYg==";
 
         function mostraDomanda() {
             const q = domandeQuiz[domandaCorrente];
-            document.getElementById('quiz-setup').innerHTML = `
-                <div style="max-width: 800px; margin: 0 auto; text-align: left;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <button onclick="mostraSceltaBlocchi()" class="btn-back-hub" style="margin-bottom: 0;">← Cambia Blocco</button>
-                        <button onclick="location.reload()" class="btn-back-hub" style="margin-bottom: 0; background: #ffebee; color: #c62828; border-color: #c62828;">Esci all'Hub</button>
+            document.getElementById('contenuto-pagina').innerHTML = `
+                <div class="section" style="display: block;">
+                    <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <button onclick="mostraSceltaBlocchi()" class="btn-back-hub" style="margin-bottom: 0;">← Cambia Blocco</button>
+                            <button onclick="tornaAllHub()" class="btn-back-hub" style="margin-bottom: 0; background: #ffebee; color: #c62828; border-color: #c62828;">Esci all'Hub</button>
+                        </div>
+                        <p style="font-weight: bold; color: var(--secondary); border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
+                            Domanda ${domandaCorrente + 1} di ${domandeQuiz.length} | Punteggio: ${punteggio}
+                        </p>
+                        <h3 style="margin-bottom: 30px; font-size: 1.3rem;">${q.domanda}</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            ${q.opzioniMescolate.map((opt, i) => `
+                                <button id="btn-opt-${i}" class="btn-opzione" onclick="verificaRisposta(${i})" 
+                                        style="background: white; border: 2px solid var(--bg); padding: 15px; border-radius: 8px; text-align: left; font-size: 1.05rem; cursor: pointer;">
+                                    ${opt}
+                                </button>`).join('')}
+                        </div>
+                        <div id="feedback-container" style="display:none; margin-top: 25px; padding: 20px; border-radius: 8px;"></div>
                     </div>
-                    <p style="font-weight: bold; color: var(--secondary); border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
-                        Domanda ${domandaCorrente + 1} di ${domandeQuiz.length} | Punteggio: ${punteggio}
-                    </p>
-                    <h3 style="margin-bottom: 30px; font-size: 1.3rem;">${q.domanda}</h3>
-                    <div style="display: flex; flex-direction: column; gap: 15px;">
-                        ${q.opzioniMescolate.map((opt, i) => `
-                            <button id="btn-opt-${i}" class="btn-opzione" onclick="verificaRisposta(${i})" 
-                                    style="background: white; border: 2px solid var(--bg); padding: 15px; border-radius: 8px; text-align: left; font-size: 1.05rem; cursor: pointer;">
-                                ${opt}
-                            </button>`).join('')}
-                    </div>
-                    <div id="feedback-container" style="display:none; margin-top: 25px; padding: 20px; border-radius: 8px;"></div>
                 </div>`;
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
         }
@@ -192,27 +236,50 @@ const SECRET_HASH = "cGFzc3dlYg==";
             const errori = risposteUtente.filter(r => !r.corretta);
             let messaggioFinale = perc >= 80 ? "Ottimo lavoro! Preparazione solida." : (perc >= 60 ? "Buon risultato, ma puoi migliorare." : "Hai bisogno di ripassare la normativa.");
             
-            document.getElementById('quiz-setup').innerHTML = `
-                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                    <h2 style="color: var(--secondary); font-size: 2.5rem; margin-bottom: 10px;">Quiz Completato!</h2>
-                    <p style="font-size: 1.5rem; margin-top: 0;">Punteggio: <strong>${punteggio}/${domandeQuiz.length}</strong> (${perc}%)</p>
-                    <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">${messaggioFinale}</p>
-                    
-                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
-                        <button class="btn-back-hub" onclick="mostraSceltaBlocchi()" style="margin-bottom: 0;">↻ Nuova Simulazione</button>
-                        <button class="btn" onclick="location.reload()" style="max-width: 200px; margin-bottom: 0;">Torna all'Hub</button>
-                    </div>
+            document.getElementById('contenuto-pagina').innerHTML = `
+                <div class="section" style="display: block;">
+                    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                        <h2 style="color: var(--secondary); font-size: 2.5rem; margin-bottom: 10px;">Quiz Completato!</h2>
+                        <p style="font-size: 1.5rem; margin-top: 0;">Punteggio: <strong>${punteggio}/${domandeQuiz.length}</strong> (${perc}%)</p>
+                        <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px;">${messaggioFinale}</p>
+                        
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
+                            <button class="btn-back-hub" onclick="mostraSceltaBlocchi()" style="margin-bottom: 0;">↻ Nuova Simulazione</button>
+                            <button class="btn" onclick="tornaAllHub()" style="max-width: 200px; margin-bottom: 0;">Torna all'Hub</button>
+                        </div>
 
-                    ${errori.length > 0 ? `
-                        <div style="text-align: left; background: var(--bg); padding: 30px; border-radius: 12px; margin-top: 30px; margin-bottom: 40px;">
-                            <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 2px solid white; padding-bottom: 10px;">Riepilogo Errori:</h3>
-                            ${errori.map((err, i) => `
-                                <div style="margin-bottom: 25px;">
-                                    <p style="font-weight: bold; margin-bottom: 5px;">${i+1}. ${err.domanda}</p>
-                                    <p style="margin-top: 0; color: #d32f2f; font-size: 0.95rem;"><em>Spiegazione:</em> ${err.spiegazione}</p>
-                                </div>
-                            `).join('')}
-                        </div>` : ''}
+                        ${errori.length > 0 ? `
+                            <div style="text-align: left; background: var(--bg); padding: 30px; border-radius: 12px; margin-top: 30px; margin-bottom: 40px;">
+                                <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 2px solid white; padding-bottom: 10px;">Riepilogo Errori:</h3>
+                                ${errori.map((err, i) => `
+                                    <div style="margin-bottom: 25px;">
+                                        <p style="font-weight: bold; margin-bottom: 5px;">${i+1}. ${err.domanda}</p>
+                                        <p style="margin-top: 0; color: #d32f2f; font-size: 0.95rem;"><em>Spiegazione:</em> ${err.spiegazione}</p>
+                                    </div>
+                                `).join('')}
+                            </div>` : ''}
+                    </div>
                 </div>`;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // ==========================================
+        // --- GESTIONE HEADER E FOOTER ---
+        // ==========================================
+        async function caricaComponente(idContenitore, fileHtml) {
+            try {
+                const response = await fetch(fileHtml);
+                if (response.ok) {
+                    const html = await response.text();
+                    document.getElementById(idContenitore).innerHTML = html;
+                }
+            } catch (e) {
+                console.error("Errore nel caricamento del componente:", fileHtml);
+            }
+        }
+
+        // Appena la pagina HTML si è caricata, vai a pescare l'header e il footer dalla cartella "pagine"
+        document.addEventListener("DOMContentLoaded", () => {
+            caricaComponente('header-placeholder', 'pagine/header.html');
+            caricaComponente('footer-placeholder', 'pagine/footer.html');
+        });

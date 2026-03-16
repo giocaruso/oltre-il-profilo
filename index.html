@@ -8,21 +8,7 @@
 </head>
 <body>
 
-    <header class="hero">
-        <div class="hero-container">
-            <a href="chi-sono.html" title="Scopri chi sono">
-                <img src="img/assistente-tecnico.png" alt="Avatar Tecnico Esperto" class="hero-img">
-            </a>
-            <div style="flex:1;">
-                <h1 style="margin-top: 0;">Hub Assistente Tecnico ATA</h1>
-                <p style="margin-bottom: 10px;">Supporto digitale e risorse interattive per l'AT di laboratorio. <br> <span class="bold-tech">Realizzato da un Assistente tecnico di Informatica</span>.</p>
-                <div class="live-update-badge" title="Sistema in continuo aggiornamento">
-                    <span class="pulse-dot"></span>
-                    <span>Aggiornamento 03/2026: Inserito Quiz Antincendio Livello 2</span>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <div class="container">
         
@@ -32,19 +18,19 @@
                 <h2>Strumenti Operativi</h2>
                 <p class="subtitle">Utilità e aggiornamenti per il lavoro quotidiano.</p>
                 <div class="grid">
-                    <div class="card" style="border: 2px solid var(--primary);" onclick="showSection('area-test')">
+                    <div class="card" style="border: 2px solid var(--primary);" onclick="caricaPagina('pagine/area-test.html')">
                         <span style="font-size:2.5rem;">📝</span>
                         <h3>Area test e simulatori</h3>
                         <p>Mettiti alla prova: verifica le tue competenze su DigComp 2.2, sicurezza, normativa scolastica e informatica.</p>
                     </div>
                     
-                    <div class="card" onclick="showSection('corsi-formazione')">
+                    <div class="card" onclick="caricaPagina('pagine/corsi-formazione.html')">
                         <span style="font-size:2.5rem;">🚒</span>
                         <h3>Corsi e Formazione</h3>
                         <p>Sicurezza sul lavoro, antincendio, primo soccorso e certificazioni utili.</p>
                     </div>
                     
-                    <div class="card" onclick="showSection('newsletter-section')">
+                    <div class="card" onclick="caricaPagina('pagine/newsletter.html')">
                         <span style="font-size:2.5rem;">🔔</span>
                         <h3>Resta Aggiornato</h3>
                         <p>News, concorsi, normative e aggiornamenti sul profilo ATA.</p>
@@ -62,17 +48,17 @@
                 <h2>La Professione</h2>
                 <p class="subtitle">Tutto quello che c'è da sapere per iniziare e crescere come AT.</p>
                 <div class="grid">
-                    <div class="card" onclick="showSection('come-diventare-at')">
+                    <div class="card" onclick="caricaPagina('pagine/come-diventare-at.html')">
                         <span style="font-size:2.5rem;">🎓</span>
                         <h3>Come si diventa tecnico</h3>
                         <p>Requisiti, titoli di studio e accesso alle graduatorie ATA (24 mesi e terza fascia).</p>
                     </div>
-                    <div class="card" onclick="showSection('cosa-fa-un-tecnico')">
+                    <div class="card" onclick="caricaPagina('pagine/cosa-fa-un-tecnico.html')">
                         <span style="font-size:2.5rem;">⚙️</span>
                         <h3>Cosa fa un tecnico</h3>
                         <p>Mansioni, orari, responsabilità e gestione quotidiana dei laboratori.</p>
                     </div>
-                    <div class="card" onclick="showSection('avanzamento-carriera')">
+                    <div class="card" onclick="caricaPagina('pagine/avanzamento-carriera.html')">
                         <span style="font-size:2.5rem;">📈</span>
                         <h3>Avanzamento di carriera</h3>
                         <p>Posizioni economiche, passaggi di profilo e ricostruzione di carriera.</p>
@@ -104,350 +90,11 @@
 
         </div>
 
-        <div id="area-test" class="section">
-            <button onclick="location.reload()" class="btn-back-hub">← Torna all'Hub</button>
-            <h2 style="color: var(--secondary); text-align: center; margin-bottom: 15px; font-size: 2rem;">Area test e simulatori</h2>
-            
-            <p style="text-align: center; margin-bottom: 35px; font-size: 1.05rem; line-height: 1.6; max-width: 750px; margin-left: auto; margin-right: auto; color: #444;">
-                Un'area pensata sia per gli <strong>Assistenti Tecnici in servizio</strong> che per gli <strong>aspiranti ATA</strong>.<br><br>
-                Troverai test aperti a tutti e simulatori riservati ai lettori dei manuali su <strong>DigComp 2.2, normativa scolastica e sicurezza</strong>. Scegli il tuo test e mettiti alla prova!
-            </p>
-            
-            <div class="grid" style="max-width: 800px; margin: 0 auto;">
-                <div class="card" onclick="window.open('https://forms.gle/jEkFvGy3gy3onvXv6', '_blank')">
-                    <span style="font-size:2.5rem;">💻</span>
-                    <h3>50 Domande Aperte</h3>
-                    <p>Accesso libero. Test operativo ATA: un check rapido sulle conoscenze basilari richieste oggi.</p>
-                </div>
-                
-                <div class="card" style="border: 2px solid var(--primary);" onclick="showSection('quiz-auth')">
-                    <span style="font-size:2.5rem;">📝</span>
-                    <h3>Simulatore 200 Quiz</h3>
-                    <p>Accesso riservato. Include domande avanzate su DigComp 2.2, normativa e casi pratici.</p>
-                </div>
-            </div>
-        </div>
+        <div id="contenuto-pagina"></div>
 
-        <div id="quiz-auth" class="section">
-            <button onclick="showSection('area-test')" class="btn-back-hub">← Indietro</button>
-            
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 30px; font-size: 2rem;">Quiz dell'AT: Preparazione e Competenze</h2>
-                
-                <div class="quiz-intro-wrapper">
-                    <a href="https://amzn.eu/d/0iFVNuCY" target="_blank" class="quiz-cover-link" title="Acquista o visualizza su Amazon">
-                        <img src="img/copertina-200quiz.jpg" alt="Copertina Quiz 200" class="quiz-cover-img">
-                    </a>
-                    
-                    <div>
-                        <p style="font-size: 1.05rem; margin-top: 0; line-height: 1.6;">
-                            Questo simulatore contiene le 200 domande interattive tratte dal mio libro: <br>
-                            <a href="https://amzn.eu/d/0iFVNuCY" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: underline;"><em>"Quiz dell'Assistente Tecnico delle scuole"</em></a>.
-                        </p>
-
-                        <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px;">
-                            Uno strumento pensato per misurare il livello di competenza professionale e prepararsi ai passaggi per le <strong>posizioni economiche ATA</strong> attraverso un metodo di apprendimento attivo.
-                        </p>
-                        
-                        <div style="margin-top: 20px; text-align: left;">
-                            <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Cosa troverai in questo simulatore:</p>
-                            <ul style="line-height: 1.6; padding-left: 20px; margin-top: 5px;">
-                                <li style="margin-bottom: 8px;"><strong>200 Quiz Mirati:</strong> Normativa, sicurezza, gestione documentale, informatica e IA.</li>
-                                <li style="margin-bottom: 8px;"><strong>Soluzioni Commentate:</strong> Ogni risposta include una spiegazione rapida per un ripasso immediato.</li>
-                                <li><strong>Sistema Random:</strong> L'algoritmo rimescola le domande a ogni avvio per evitare l'apprendimento mnemonico.</li>
-                            </ul>
-                        </div>
-
-                        <div style="margin-top: 25px; text-align: left;">
-                            <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Argomenti principali:</p>
-                            <ul style="line-height: 1.6; padding-left: 20px; margin-top: 5px;">
-                                <li style="margin-bottom: 8px;"><strong>DigComp 2.2:</strong> Le competenze digitali richieste nella Pubblica Amministrazione.</li>
-                                <li style="margin-bottom: 8px;"><strong>Sicurezza (D.Lgs. 81/08):</strong> La gestione dei rischi nei laboratori scolastici.</li>
-                                <li><strong>Informatica e Reti:</strong> Hardware, software e piattaforme ministeriali.</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background: var(--bg); padding: 20px; border-radius: 12px; border: 1px dashed var(--primary); margin-top: 30px;">
-                            <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Come accedere:</p>
-                            <p style="margin-bottom: 0;">Prendi una copia del manuale, cerca la spiegazione relativa alla <strong>domanda n. 187</strong> e inserisci qui sotto la <strong>prima parola</strong> esatta di quel testo.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="text-align:center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-                    <input type="text" id="pass-word" placeholder="Inserisci la parola segreta..." style="padding:15px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:300px; margin-bottom: 15px; font-size: 1rem;">
-                    <br>
-                    <button class="btn" onclick="checkAuth()" style="max-width:300px; font-size: 1.1rem; margin-bottom: 30px;">Sblocca e Avvia Simulatore</button>
-                </div>
-            </div>
-            <button onclick="location.reload()" class="btn-back-hub" style="margin-top: 20px;">← Torna all'Hub</button>
-        </div>
-
-        <div id="quiz-setup" class="section"></div>
-
-        <div id="come-diventare-at" class="section">
-            <button onclick="showSection('home-hub')" class="btn-back-hub">← Torna all'Hub</button>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 20px; font-size: 2.2rem;">Come si diventa Assistente Tecnico</h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #555; text-align: center; margin-bottom: 40px;">
-                    Una guida chiara e senza fronzoli per capire i requisiti e come funziona il sistema di reclutamento nelle scuole pubbliche.
-                </p>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary);">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 25px; font-size: 1.5rem;">1. Il Diploma (Il lasciapassare)</h3>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Quale titolo occorre per diventare tecnico di laboratorio a scuola?</h4>
-                    <p style="margin-top: 0;">A differenza di altri profili ATA (come il collaboratore scolastico o l'assistente amministrativo), per fare l'Assistente Tecnico non basta un diploma di maturità qualsiasi. Serve un <strong>diploma tecnico o professionale specifico</strong> che dia accesso a una determinata "Area di Laboratorio".</p>
-                    <p>Per il laboratorio di informatica (la famosa <strong>Area AR02</strong>), i diplomi tipici sono:</p>
-                    <ul>
-                        <li style="margin-bottom: 5px;">Perito Informatico, Elettronico o Telecomunicazioni</li>
-                        <li style="margin-bottom: 5px;">Tecnico delle Industrie Elettroniche o Elettriche</li>
-                    </ul>
-                    
-                    <h4 style="color: var(--primary); margin-top: 25px; margin-bottom: 5px; font-size: 1.2rem;">Come verifico se il mio diploma conferisce l'accesso?</h4>
-                    <div style="background: #e3ecf5; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                        <p style="margin: 0; font-size: 0.95rem;"><strong>📌 L'Allegato C (Tabella di corrispondenza):</strong> Il Ministero pubblica una tabella ufficiale che associa ogni singolo titolo di studio alle aree di laboratorio. Puoi verificare in autonomia la validità del tuo diploma utilizzando l'<a href="https://www.istruzione.it/graduatoriedistituto_ata/personale_assistente_tecnico_allegato_c.shtml" target="_blank" style="color: var(--primary); font-weight: bold;">Applicazione ufficiale Allegato C</a>.</p>
-                    </div>
-
-                    <h4 style="color: var(--primary); margin-top: 25px; margin-bottom: 5px; font-size: 1.2rem;">È sufficiente possedere solo il diploma?</h4>
-                    <p style="margin-top: 0; margin-bottom: 15px;"><strong>⚠️ No, c'è una grande novità:</strong> Per i nuovi inserimenti in graduatoria, oggi il diploma da solo non basta più. È diventato obbligatorio possedere anche la <strong>Certificazione Internazionale di Alfabetizzazione Digitale (CIAD)</strong>.</p>
-                    
-                    <p style="margin-bottom: 5px;">Attenzione però: non è sufficiente un "corso base" di informatica qualsiasi. Per essere valida come CIAD ai fini delle graduatorie ATA, la certificazione <strong>deve avere tre caratteristiche obbligatorie</strong>:</p>
-                    <ul style="line-height: 1.6; margin-top: 5px; margin-bottom: 15px;">
-                        <li style="margin-bottom: 5px;">Deve essere rilasciata da un ente accreditato ad <strong>Accredia</strong>.</li>
-                        <li style="margin-bottom: 5px;">Deve essere registrata e riportare esplicitamente il <strong>bollino/marchio Accredia</strong> sul certificato.</li>
-                        <li style="margin-bottom: 5px;">Deve essere allineata ai framework europei per le competenze digitali (come il DigComp 2.2).</li>
-                    </ul>
-
-                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; border: 1px solid #ffcc80;">
-                        <p style="margin: 0; font-size: 0.95rem;"><strong>💡 Quali sono le più usate?</strong> Le due certificazioni più comuni (rilasciate da due enti concorrenti ma ugualmente valide) sono <strong>EIPASS 7 Moduli Standard</strong> (di Certipass) e <strong>ICDL Full Standard</strong> (di AICA). L'importante, quando ci si iscrive, è assicurarsi di richiedere il percorso "Standard" che preveda il rilascio del certificato con bollino Accredia.</p>
-                    </div>
-                </div>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #4ce0b3;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 25px; font-size: 1.5rem;">2. Le Graduatorie (Come si entra a lavorare)</h3>
-                    <p style="margin-top: 0;">Nelle scuole pubbliche non si invia il curriculum direttamente in segreteria per farsi assumere. Il reclutamento avviene iscrivendosi in apposite graduatorie provinciali, scegliendo una sola provincia in tutta Italia.</p>
-                    <p>Il percorso si divide in due step principali:</p>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">A) La Terza Fascia (Il punto di partenza)</h4>
-                    <p style="margin-top: 0; margin-bottom: 20px;">Si aggiorna solitamente ogni 3 anni. Chiunque abbia il diploma corretto e la certificazione CIAD può iscriversi. Da questa graduatoria le scuole attingono per chiamare i tecnici per le <strong>supplenze</strong> (che possono essere sostituzioni brevi di qualche settimana, oppure contratti che arrivano fino al 30 giugno o 31 agosto).</p>
-
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">B) La Prima Fascia / Graduatoria "24 Mesi" (La stabilità)</h4>
-                    <p style="margin-top: 0;">È il traguardo. Dopo aver lavorato e accumulato <strong>23 mesi e 16 giorni di servizio</strong> statale come Assistente Tecnico (anche in anni diversi e in scuole diverse), acquisisci il diritto di iscriverti alla Graduatoria Permanente. Questa si aggiorna ogni anno: trovarsi qui significa avere la priorità assoluta per i contratti annuali e, infine, essere chiamati per l'immissione in <strong>ruolo (il contratto a tempo indeterminato)</strong>.</p>
-                </div>
-                
-                <div style="text-align: center; margin-top: 20px;">
-                    <p style="font-size: 0.95rem; color: #666;">🔗 <em>Link utile: Per approfondimenti normativi, visita la <a href="https://www.miur.gov.it/web/guest/personale-ata" target="_blank" style="color: var(--primary); text-decoration: underline;">sezione ufficiale del Personale ATA sul sito del MIM</a>.</em></p>
-                </div>
-
-                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-                    <p style="font-size: 1.1rem; color: var(--secondary); font-weight: bold; margin-bottom: 15px;">Vuoi restare sempre aggiornato su normative e concorsi ATA?</p>
-                    <button class="btn" style="width: auto; padding: 10px 25px; font-size: 1rem; margin-bottom: 30px;" onclick="showSection('newsletter-section')">📩 Iscriviti alla Newsletter</button>
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                        <button class="btn-back-hub" style="margin-bottom: 0;" onclick="showSection('home-hub')">← Torna alla Home</button>
-                        <button class="btn" style="width: auto; margin-bottom: 0;" onclick="showSection('cosa-fa-un-tecnico')">Cosa fa un tecnico →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="cosa-fa-un-tecnico" class="section">
-            <button onclick="showSection('home-hub')" class="btn-back-hub">← Torna all'Hub</button>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 20px; font-size: 2.2rem;">Cosa fa (davvero) un Assistente Tecnico?</h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #555; text-align: center; margin-bottom: 40px;">
-                    Mansioni, orari e responsabilità dell'AT di informatica (Area AR02) nella gestione quotidiana dei laboratori scolastici.
-                </p>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary);">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">💻 Le Mansioni Principali</h3>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Supporto alla didattica (Non insegnamento!)</h4>
-                    <p style="margin-top: 0; margin-bottom: 15px;">L'Assistente Tecnico è la "spalla" del docente durante le ore di laboratorio. Il nostro compito non è spiegare la lezione agli alunni, ma garantire che tutte le macchine, i software, la LIM e la rete funzionino perfettamente, assistendo il professore affinché la lezione si svolga senza intoppi tecnici.</p>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Manutenzione e Gestione</h4>
-                    <p style="margin-top: 0; margin-bottom: 0;">Ci occupiamo del setup iniziale dei PC all'inizio dell'anno, degli aggiornamenti software, della risoluzione dei piccoli guasti e dell'installazione di nuovi applicativi. Siamo anche i veri e propri "custodi" del laboratorio: spesso riceviamo l'incarico di <em>sub-consegnatari</em>, il che significa che siamo responsabili dell'inventario, della cura e della custodia dei beni presenti nell'aula, segnalando al DSGA ciò che deve essere riparato o smaltito.</p>
-                </div>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #4ce0b3;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">⏱️ Orari e Presenza</h3>
-                    <p style="margin-top: 0; margin-bottom: 15px;">L'orario di lavoro contrattuale è di <strong>36 ore settimanali</strong>, proprio come gli altri profili ATA. Può essere articolato in 6 ore al giorno per 6 giorni (dal lunedì al sabato), oppure, come avviene sempre più spesso, in 7 ore e 12 minuti su 5 giorni (la cosiddetta "settimana corta" dal lunedì al venerdì).</p>
-                    <p style="margin-bottom: 0;">Le ore si svolgono prevalentemente al mattino, in concomitanza con le lezioni, ma se la scuola prevede rientri pomeridiani o corsi serali per gli studenti, l'orario viene adattato per garantire sempre la copertura e l'assistenza nel laboratorio.</p>
-                </div>
-
-                <div style="background: #e3ecf5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px dashed var(--primary); text-align: center;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 15px; font-size: 1.6rem;">📚 Dalla teoria alla pratica</h3>
-                    <p style="margin-top: 0; margin-bottom: 25px; font-size: 1.05rem; color: #444;">Vuoi scoprire i veri "trucchi del mestiere", le avventure quotidiane dietro le quinte o prepararti operativamente per affrontare questo lavoro con sicurezza?</p>
-                    
-                    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-                        <button class="btn" style="width: auto; padding: 12px 25px; font-size: 1rem; background-color: var(--primary);" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')">📖 Leggi il "Diario di un AT"</button>
-                        <button class="btn" style="width: auto; padding: 12px 25px; font-size: 1rem; background-color: var(--secondary);" onclick="window.open('https://amzn.eu/d/0iFVNuCY', '_blank')">✅ Mettiti alla prova (Quiz)</button>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-                    <p style="font-size: 1.1rem; color: var(--secondary); font-weight: bold; margin-bottom: 15px;">Vuoi restare sempre aggiornato su normative e concorsi ATA?</p>
-                    <button class="btn" style="width: auto; padding: 10px 25px; font-size: 1rem; margin-bottom: 30px;" onclick="showSection('newsletter-section')">📩 Iscriviti alla Newsletter</button>
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                        <button class="btn-back-hub" style="margin-bottom: 0;" onclick="showSection('come-diventare-at')">← Come si diventa AT</button>
-                        <button class="btn" style="width: auto; margin-bottom: 0;" onclick="showSection('avanzamento-carriera')">Avanzamento Carriera →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="avanzamento-carriera" class="section">
-            <button onclick="showSection('home-hub')" class="btn-back-hub">← Torna all'Hub</button>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 20px; font-size: 2.2rem;">L'Avanzamento di Carriera</h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #555; text-align: center; margin-bottom: 40px;">
-                    Dalla ricostruzione degli anni di precariato fino all'acquisizione di nuove posizioni economiche: come si cresce nel profilo ATA.
-                </p>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary);">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">⏳ Ricostruzione di Carriera</h3>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Cos'è e quando si fa?</h4>
-                    <p style="margin-top: 0; margin-bottom: 15px;">Quando finalmente si entra in ruolo (contratto a tempo indeterminato) e si supera l'anno di prova, scatta il momento della "Ricostruzione di Carriera". È la procedura burocratica con cui la scuola calcola tutti gli anni in cui hai lavorato come supplente (il precariato) e te li riconosce ufficialmente.</p>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Come incide sullo stipendio?</h4>
-                    <p style="margin-top: 0; margin-bottom: 0;">Riconoscendo il tuo servizio passato, vieni inserito nel corretto "gradone" di anzianità (gli scatti stipendiali avvengono per fasce d'età lavorativa: 0-8 anni, 9-14, 15-20, ecc.). Questo si traduce in un adeguamento dello stipendio mensile e, spesso, nell'erogazione degli arretrati maturati.</p>
-                </div>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #4ce0b3;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">📈 Posizioni Economiche e Passaggi</h3>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Cosa sono le Posizioni Economiche?</h4>
-                    <p style="margin-top: 0; margin-bottom: 15px;">Non si rimane sempre allo stesso livello. Il Ministero attiva periodicamente delle procedure per assegnare la <strong>Prima e Seconda Posizione Economica</strong>. Sono veri e propri scatti di stipendio permanenti che si ottengono frequentando un corso di formazione e superando un test finale. In cambio di questo aumento, l'AT si assume compiti di maggiore responsabilità (es. coordinamento di altri tecnici o gestione più complessa dei beni).</p>
-
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Si può cambiare del tutto profilo?</h4>
-                    <p style="margin-top: 0; margin-bottom: 0;">Assolutamente sì. Tramite la cosiddetta mobilità professionale (o passaggi verticali), un Assistente Tecnico che possiede i titoli di studio necessari può chiedere il passaggio al profilo di Docente Tecnico Pratico (ITP) oppure, maturando l'esperienza richiesta, può puntare al ruolo di DSGA (Direttore dei Servizi Generali e Amministrativi) o fare da "Facente Funzione".</p>
-                </div>
-
-                <div style="background: #e3ecf5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px solid var(--primary); position: relative;">
-                    <div style="position: absolute; top: -15px; left: 30px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
-                        Il mio consiglio personale
-                    </div>
-                    <h3 style="color: var(--secondary); margin-top: 10px; margin-bottom: 15px; font-size: 1.4rem;">Andare "Oltre il profilo"</h3>
-                    <p style="margin-top: 0; margin-bottom: 15px; font-size: 1.05rem; color: #333; line-height: 1.6;">
-                        Quando ho iniziato, cercare informazioni chiare su come crescere in questa professione era un'impresa. Spesso mi chiedete come affrontare la quotidianità del laboratorio, come non farsi trovare impreparati o come studiare per ottenere le tanto desiderate Posizioni Economiche.
-                    </p>
-                    <p style="margin-top: 0; margin-bottom: 25px; font-size: 1.05rem; color: #333; line-height: 1.6;">
-                        Proprio per questo ho deciso di mettere nero su bianco la mia esperienza. Nel mio libro <strong>"Diario di un AT"</strong> ho racchiuso i miei appunti personali, i casi pratici che affronto ogni giorno e un'intera sezione dedicata ad andare <em>oltre il semplice profilo</em>, puntando alla preparazione per gli scatti economici. Non è teoria noiosa, è pura vita da laboratorio.
-                    </p>
-                    
-                    <div style="text-align: left;">
-                        <button class="btn" style="width: auto; padding: 12px 25px; font-size: 1rem; background-color: var(--primary);" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')">Scopri il mio Diario su Amazon</button>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-                    <p style="font-size: 1.1rem; color: var(--secondary); font-weight: bold; margin-bottom: 15px;">Vuoi restare sempre aggiornato su normative e concorsi ATA?</p>
-                    <button class="btn" style="width: auto; padding: 10px 25px; font-size: 1rem; margin-bottom: 30px;" onclick="showSection('newsletter-section')">📩 Iscriviti alla Newsletter</button>
-                    
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                        <button class="btn-back-hub" style="margin-bottom: 0;" onclick="showSection('cosa-fa-un-tecnico')">← Cosa fa un tecnico</button>
-                        <button class="btn" style="width: auto; margin-bottom: 0;" onclick="showSection('area-test')">Mettiti alla Prova (Quiz) →</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-		<div id="corsi-formazione" class="section">
-            <button onclick="showSection('home-hub')" class="btn-back-hub">← Torna all'Hub</button>
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: var(--secondary); text-align: center; margin-bottom: 20px; font-size: 2.2rem;">Corsi e Formazione</h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #555; text-align: center; margin-bottom: 40px;">
-                    Sicurezza sul lavoro, emergenze e primo soccorso: come la scuola investe sulla nostra preparazione.
-                </p>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary);">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">🎓 La scuola investe su di te</h3>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Devo pagare io i corsi sulla sicurezza?</h4>
-                    <p style="margin-top: 0; margin-bottom: 15px;">Assolutamente no. Che tu sia di ruolo o un precario al primo incarico a tempo determinato, nel momento in cui firmi il contratto la scuola diventa il tuo datore di lavoro e ha l'obbligo di formarti gratuitamente (solitamente durante l'orario di servizio) per garantirti un ambiente sicuro.</p>
-                    
-                    <h4 style="color: var(--primary); margin-bottom: 5px; font-size: 1.2rem;">Quali sono i corsi obbligatori di base?</h4>
-                    <p style="margin-top: 0; margin-bottom: 0;">Appena preso servizio dovrai svolgere la <strong>Formazione Generale</strong> (4 ore) e la <strong>Formazione Specifica</strong> (rischio medio o alto a seconda dei laboratori che gestisci). Senza questi corsi, tecnicamente, non potresti nemmeno operare in laboratorio!</p>
-                </div>
-
-                <div style="background: var(--bg); padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid #4ce0b3;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.5rem;">⛑️ Incarichi Speciali: Le figure sensibili</h3>
-                    
-                    <p style="margin-top: 0; margin-bottom: 15px;">Ogni plesso scolastico deve avere al suo interno delle "figure sensibili" pronte a intervenire in caso di emergenza. Gli Assistenti Tecnici, essendo personale stabile e quasi sempre presente in sede durante la didattica, sono spesso individuati dal Dirigente Scolastico per ricoprire questi ruoli.</p>
-                    <p style="margin-top: 0; margin-bottom: 0;">Se accetti l'incarico, la scuola ti farà frequentare corsi specifici (e relativi aggiornamenti periodici) per diventare <strong>Addetto al Primo Soccorso</strong> o <strong>Addetto Antincendio</strong>. Sono competenze preziose che arricchiscono il tuo curriculum professionale e personale.</p>
-                </div>
-
-                <div style="background: #fff5f5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ff6b6b; position: relative; text-align: center;">
-                    <div style="position: absolute; top: -15px; left: 30px; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
-                        Simulatore Ufficiale
-                    </div>
-                    
-                    <h3 style="color: #c62828; margin-top: 10px; margin-bottom: 15px; font-size: 1.6rem;">🔥 Focus: Area Antincendio</h3>
-                    <p style="margin-top: 0; margin-bottom: 25px; font-size: 1.05rem; color: #333; line-height: 1.6;">
-                        Mettiti alla prova con le domande ufficiali per gli addetti antincendio (Rischio Medio <strong>2-FOR</strong>, ai sensi del D.Lgs. 81/08 e D.M. 2/9/2021).
-                    </p>
-                    
-                    <div style="background: white; padding: 25px; border-radius: 8px; border: 1px dashed #ff6b6b; max-width: 400px; margin: 0 auto;">
-                        <p style="font-weight: bold; margin-top: 0; color: #c62828;">Inserisci la tua email per ricevere futuri aggiornamenti (opzionale) e inizia subito.</p>
-                        <input type="email" id="email-antincendio" placeholder="Tua email (opzionale)..." style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; box-sizing: border-box; margin-bottom: 15px;">
-                        
-                        <button class="btn" style="width: 100%; background-color: #ff6b6b; margin-bottom: 15px;" onclick="startPublicQuiz('antincendio-lv2.json')">Avvia Simulatore Antincendio</button>
-                        
-                        <span style="font-size: 0.9rem; color: #777; cursor: pointer; text-decoration: underline;" onclick="startPublicQuiz('antincendio-lv2.json')">Salta l'iscrizione e vai al test</span>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                        <button class="btn-back-hub" style="margin-bottom: 0;" onclick="showSection('avanzamento-carriera')">← Avanzamento Carriera</button>
-                        <button class="btn" style="width: auto; margin-bottom: 0;" onclick="showSection('area-test')">Area Test e Simulatori →</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div id="newsletter-section" class="section" style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <button onclick="location.reload()" class="btn-back-hub" style="float: left;">← Torna all'Hub</button>
-            <div style="clear: both;"></div>
-            <span style="font-size: 4rem;">📩</span>
-            <h2 style="color: var(--secondary);">Iscriviti alla Newsletter</h2>
-            <form id="newsletter-form" onsubmit="submitToGoogle(event)">
-                <input type="text" id="work-address" name="work-address" style="display:none;" tabindex="-1">
-                <input type="email" id="email-input" placeholder="La tua email..." required style="padding:15px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:300px; margin-bottom: 15px; box-sizing: border-box;">
-                <div style="text-align: left; max-width: 300px; margin: 0 auto 15px auto; font-size: 0.85rem;">
-                    <label style="display: flex; align-items: flex-start; gap: 8px;">
-                        <input type="checkbox" required>
-                        <span>Acconsento al trattamento dati per la newsletter dell'Hub.</span>
-                    </label>
-                </div>
-                <button type="submit" class="btn" id="submit-btn" style="max-width:300px;">Iscriviti Ora</button>
-            </form>
-            <div id="newsletter-msg" style="margin-top: 20px; font-weight: bold; display: none; padding: 15px; border-radius: 8px;"></div>
-        </div>
-
-        <div id="coming-soon" class="section" style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <button onclick="location.reload()" class="btn-back-hub" style="float: left;">← Torna all'Hub</button>
-            <div style="clear: both;"></div>
-            <span style="font-size: 4rem;">🚧</span>
-            <h2 style="color: var(--secondary);">Lavori in corso...</h2>
-            <p>Sezione in aggiornamento.</p>
-        </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <p style="font-weight: bold; font-size: 1.1rem;">&copy; 2026 Hub Assistente Tecnico ATA - G. Caruso</p>
-            <p style="font-size: 0.9rem;">
-                <a href="chi-sono.html#contatti">Contattami</a> | 
-                <a style="cursor: pointer;" onclick="showSection('newsletter-section')">Iscriviti alla Newsletter</a>
-            </p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <script src="script.js"></script>
 </body>
