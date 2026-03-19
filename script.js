@@ -68,7 +68,7 @@ const SECRET_HASH = "cGFzc3dlYg==";
             btn.disabled = true;
             btn.innerText = "Invio...";
             
-            fetch("https://script.google.com/macros/s/AKfycbxyQUkxrfwyVsu2ws8ACqkRgJUhc_KQ5KoVDNys_sj0NUCOjEPGQ_GGOvm0uIACcAxZNw/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbzfwU9eEqIcKW4asK4hElzG7SEL8jqbP_sLJ43Ye3sRDkLAJNI1RLy6K9I8kcV0Vwz1Uw/exec", {
                 method: 'POST', mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ email: email })
@@ -86,7 +86,7 @@ const SECRET_HASH = "cGFzc3dlYg==";
             const email = emailInput ? emailInput.value : '';
 
             if (email && email.includes('@')) {
-                fetch("https://script.google.com/macros/s/AKfycbxyQUkxrfwyVsu2ws8ACqkRgJUhc_KQ5KoVDNys_sj0NUCOjEPGQ_GGOvm0uIACcAxZNw/exec", {
+                fetch("https://script.google.com/macros/s/AKfycbzfwU9eEqIcKW4asK4hElzG7SEL8jqbP_sLJ43Ye3sRDkLAJNI1RLy6K9I8kcV0Vwz1Uw/exec", {
                     method: 'POST', mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ email: email, fonte: "Quiz Antincendio" })
