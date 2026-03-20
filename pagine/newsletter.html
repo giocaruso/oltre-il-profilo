@@ -1,21 +1,31 @@
 <div class="section" style="display: block;">
-    <button onclick="tornaAllHub()" class="btn-back-hub">← Torna all'Officina</button>
-    
-    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        
+        <div style="text-align: left; margin-bottom: 20px;">
+            <button onclick="tornaAllHub()" class="btn-back-hub" style="margin: 0;">← Torna all'Officina</button>
+        </div>
+        
         <span style="font-size: 4rem; display: block; margin-bottom: 10px;">📩</span>
-        <h2 style="color: var(--secondary); margin-bottom: 15px;">Iscriviti alla Newsletter</h2>
-        <p style="font-size: 1.1rem; color: #555; margin-bottom: 30px; line-height: 1.6;">
-            Unisciti ai colleghi dell'Officina. Riceverai aggiornamenti su nuove guide, personale ATA e nuovi simulatori direttamente nella tua casella email.<br>
-            <strong style="color: var(--primary);">Zero spam, solo strumenti utili.</strong>
+        <h2 style="color: var(--secondary); margin-bottom: 25px; font-size: 2.2rem;">Risorse pratiche per chi lavora a scuola</h2>
+        
+        <p style="font-size: 1.1rem; color: #444; margin-bottom: 15px; line-height: 1.6; text-align: left;">
+            L'Officina nasce per gli Assistenti Tecnici, ma gli strumenti che costruisco – come i simulatori sulle competenze digitali o le utility per risolvere i problemi di tutti i giorni al PC – sono pensati per semplificare la vita a <strong>tutto il personale scolastico</strong>, dai colleghi ATA ai docenti.
+        </p>
+        <p style="font-size: 1.1rem; color: #444; margin-bottom: 35px; line-height: 1.6; text-align: left;">
+            Non ti riempirò la casella di spam, circolari o notizie sindacali (per quelle ci sono già i siti specializzati). Ti scriverò solo ed esclusivamente per avvisarti quando pubblicherò un nuovo simulatore, un'utility o una guida pratica qui sul portale. Poca teoria, molta pratica.
+        </p>
+        
+        <p style="margin-bottom: 30px;">
+            <strong style="color: var(--primary); font-size: 1.3rem; background: #e3f2fd; padding: 5px 15px; border-radius: 20px;">Zero spam, solo strumenti utili.</strong>
         </p>
 
-        <form id="newsletter-form" onsubmit="submitToGoogle(event)" style="background: white; padding: 35px 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee;">
+        <form id="newsletter-form" onsubmit="submitToGoogle(event)" style="background: white; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; max-width: 550px; margin: 0 auto;">
             
             <input type="text" id="work-address" name="work-address" style="display:none;" tabindex="-1">
             
-            <input type="email" id="email-input" placeholder="Il tuo indirizzo email..." required style="padding:15px; border-radius:8px; border:1px solid #ccc; width:100%; max-width: 400px; margin-bottom: 20px; font-size: 1.05rem; box-sizing: border-box;">
+            <input type="email" id="email-input" placeholder="Il tuo indirizzo email..." required style="padding:15px; border-radius:8px; border:1px solid #ccc; width:100%; margin-bottom: 20px; font-size: 1.05rem; box-sizing: border-box; background: #fafafa;">
             
-            <div style="text-align: left; max-width: 400px; margin: 0 auto 25px auto; font-size: 0.9rem; color: #555; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px dashed #ccc;">
+            <div style="text-align: left; margin: 0 auto 25px auto; font-size: 0.9rem; color: #555; background: #f4f7fa; padding: 15px; border-radius: 8px; border: 1px dashed #b6d4fe;">
                 <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
                     <input type="checkbox" required style="margin-top: 3px; transform: scale(1.3);">
                     <span style="line-height: 1.5;">
@@ -24,9 +34,14 @@
                 </label>
             </div>
             
-            <button type="submit" class="btn" id="submit-btn" style="max-width:400px; font-size: 1.1rem; padding: 15px;">Iscriviti alla Newsletter</button>
+            <button type="submit" class="btn" id="submit-btn" style="width: 100%; font-size: 1.1rem; padding: 15px; margin-bottom: 0;">Iscriviti alla Newsletter</button>
         </form>
         
         <div id="newsletter-msg" style="margin-top: 20px; font-weight: bold; display: none; padding: 15px; border-radius: 8px;"></div>
+
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 45px;">
+            <button class="btn" style="margin: 0; width: 220px; padding: 12px 15px; font-size: 0.95rem; background-color: #f4f7fa; color: var(--primary); border: 2px solid var(--primary);" onclick="tornaAllHub()">🏠 Torna all'Officina</button>
+        </div>
+
     </div>
 </div>
