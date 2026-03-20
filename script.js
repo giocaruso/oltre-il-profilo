@@ -25,6 +25,10 @@ const SECRET_HASH = "cGFzc3dlYg==";
                 
                 // 4. Riporta la visuale in cima
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // TRUCCO POST-IT: Salva la pagina attuale in memoria
+                sessionStorage.setItem('paginaSalvata', urlFile);
+
             } catch (e) {
                 console.error(e);
                 alert("Errore nel caricamento. Attenzione: se apri il file direttamente dal computer, il browser blocca per sicurezza il caricamento di altre pagine. Mettilo online su GitHub e funzionerà perfettamente!");
@@ -44,6 +48,9 @@ const SECRET_HASH = "cGFzc3dlYg==";
             if(hero) hero.style.display = 'block';
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // TRUCCO POST-IT: Cancella la memoria tornando alla home
+            sessionStorage.removeItem('paginaSalvata');
         }
 
         // ==========================================
@@ -62,6 +69,17 @@ const SECRET_HASH = "cGFzc3dlYg==";
 
         function submitToGoogle(e) {
             e.preventDefault();
+            
+            // --- TRAPPOLA ANTI-BOT (Honeypot) ---
+            const honeypot = document.getElementById('work-address');
+            if (honeypot && honeypot.value !== "") {
+                // È un bot! Fingiamo il successo e blocchiamo l'invio reale
+                document.getElementById('newsletter-msg').style.display = "block";
+                document.getElementById('newsletter-msg').style.backgroundColor = "#e8f5e9";
+                document.getElementById('newsletter-msg').innerText = "Iscrizione completata! 🎉";
+                return; 
+            }
+
             const email = document.getElementById('email-input').value;
             const btn = document.getElementById('submit-btn');
             const msg = document.getElementById('newsletter-msg');
@@ -133,7 +151,7 @@ const SECRET_HASH = "cGFzc3dlYg==";
             document.getElementById('contenuto-pagina').innerHTML = `
                 <div class="section" style="display: block;">
                     <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                        <button onclick="tornaAllHub()" class="btn-back-hub" style="float:left;">← Esci all'Hub</button>
+                        <button onclick="tornaAllHub()" class="btn-back-hub" style="float:left;">← Torna all'Officina</button>
                         <div style="clear: both;"></div>
                         
                         <h2 style="color: var(--secondary); margin-bottom: 20px; font-size: 2rem;">Quante domande vuoi affrontare?</h2>
@@ -176,7 +194,7 @@ const SECRET_HASH = "cGFzc3dlYg==";
                     <div style="max-width: 800px; margin: 0 auto; text-align: left;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                             <button onclick="mostraSceltaBlocchi()" class="btn-back-hub" style="margin-bottom: 0;">← Cambia Blocco</button>
-                            <button onclick="tornaAllHub()" class="btn-back-hub" style="margin-bottom: 0; background: #ffebee; color: #c62828; border-color: #c62828;">Esci all'Hub</button>
+                            <button onclick="tornaAllHub()" class="btn-back-hub" style="margin-bottom: 0; background: #ffebee; color: #c62828; border-color: #c62828;">Torna all'Officina</button>
                         </div>
                         <p style="font-weight: bold; color: var(--secondary); border-bottom: 2px solid var(--bg); padding-bottom: 10px;">
                             Domanda ${domandaCorrente + 1} di ${domandeQuiz.length} | Punteggio: ${punteggio}
@@ -245,12 +263,12 @@ const SECRET_HASH = "cGFzc3dlYg==";
                         
                         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
                             <button class="btn-back-hub" onclick="mostraSceltaBlocchi()" style="margin-bottom: 0;">↻ Nuova Simulazione</button>
-                            <button class="btn" onclick="tornaAllHub()" style="max-width: 200px; margin-bottom: 0;">Torna all'Hub</button>
+                            <button class="btn" onclick="tornaAllHub()" style="max-width: 200px; margin-bottom: 0;">Torna all'Officina</button>
                         </div>
 
                         ${errori.length > 0 ? `
                             <div style="text-align: left; background: var(--bg); padding: 30px; border-radius: 12px; margin-top: 30px; margin-bottom: 40px;">
-                                <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 2px solid white; padding-bottom: 10px;">Riepilogo Errori:</h3>
+                                <h3 style="color: var(--secondary); margin-top: 0; border-bottom: 2px white solid; padding-bottom: 10px;">Riepilogo Errori:</h3>
                                 ${errori.map((err, i) => `
                                     <div style="margin-bottom: 25px;">
                                         <p style="font-weight: bold; margin-bottom: 5px;">${i+1}. ${err.domanda}</p>
@@ -278,8 +296,14 @@ const SECRET_HASH = "cGFzc3dlYg==";
             }
         }
 
-        // Appena la pagina HTML si è caricata, vai a pescare l'header e il footer dalla cartella "pagine"
+        // Appena la pagina HTML si è caricata, vai a pescare l'header e il footer
         document.addEventListener("DOMContentLoaded", () => {
             caricaComponente('header-placeholder', 'pagine/header.html');
             caricaComponente('footer-placeholder', 'pagine/footer.html');
+
+            // TRUCCO POST-IT: Controlla se c'era una pagina aperta prima di ricaricare
+            const pagina = sessionStorage.getItem('paginaSalvata');
+            if (pagina) {
+                caricaPagina(pagina); // Se c'è, ricaricala in automatico!
+            }
         });
