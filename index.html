@@ -18,9 +18,9 @@
             margin-top: 20px !important;
         }
         
-        /* Effetto speciale per i manuali */
-        .manuale-hover { transition: all 0.3s ease; }
-        .manuale-hover:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(230, 57, 70, 0.15) !important; border-left-width: 8px !important; }
+        /* Effetto speciale per i manuali con fix per lo spostamento del testo */
+        .manuale-hover { transition: all 0.3s ease !important; }
+        .manuale-hover:hover { transform: translateY(-4px) !important; box-shadow: 0 10px 25px rgba(0, 74, 153, 0.15) !important; border-left-width: 6px !important; }
     </style>
 </head>
 <body>
@@ -48,7 +48,7 @@
                         <span style="font-size: 2.8rem;">💻</span>
                         <div style="text-align: left;">
                             <h3 style="margin: 0 0 5px 0; color: var(--secondary); font-size: 1.3rem;">Area test e simulatori</h3>
-                            <p style="margin: 0; color: #555; font-size: 0.95rem;">Mettiti alla prova: verifica le tue competenze su <span style="color: #ff0000;">DigComp 2.2</span>, sicurezza, normativa scolastica. Misura le tue conoscenze pratiche di informatica per lavorare a scuola. Preparati ad esami specifici come quello per addetto antincendio.</p>
+                            <p style="margin: 0; color: #555; font-size: 0.95rem;">Misura le tue conoscenze pratiche di informatica per lavorare a scuola. Preparati ad esami specifici come quello per <span style="color: #ff0000;">DigComp 2.2</span>, addetto antincendio e tanti altri.</p>
                         </div>
                     </div>
                     
@@ -56,7 +56,7 @@
                         <span style="font-size: 2.8rem;">📢</span>
                         <div style="text-align: left;">
                             <h3 style="margin: 0 0 5px 0; color: var(--secondary); font-size: 1.3rem;">Resta Aggiornato</h3>
-                            <p style="margin: 0; color: #555; font-size: 0.95rem;">News, concorsi, normative e aggiornamenti sul profilo ATA direttamente via email.</p>
+                            <p style="margin: 0; color: #555; font-size: 0.95rem;">Risorse pratiche per chi lavora a scuola. Ricevi in anteprima i nuovi simulatori e le utility digitali pensate per semplificare la vita in laboratorio, in cattedra o in segreteria.</p>
                         </div>
                     </div>
                     
@@ -64,7 +64,7 @@
                         <span style="font-size: 2.8rem;">🛠️</span>
                         <div style="text-align: left;">
                             <h3 style="margin: 0 0 5px 0; color: #333; font-size: 1.3rem;">Trucchi del Mestiere</h3>
-                            <p style="margin: 0; color: #555; font-size: 0.95rem;">Script, comandi rapidi e utility da chiavetta per la gestione del laboratorio. <strong style="color: var(--secondary); font-size: 0.9rem;">[ Prossimamente ]</strong></p>
+                            <p style="margin: 0; color: #555; font-size: 0.95rem;">Script, comandi rapidi e utility da chiavetta per la gestione del laboratorio ma anche per tutti. <strong style="color: var(--secondary); font-size: 0.9rem;">[ Prossimamente ]</strong></p>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
             </div>
 
             <div class="category-section category-alt">
-                <h2>La Professione</h2>
+                <h2>🧑‍🔧La Professione</h2>
                 <p class="subtitle">Tutto quello che c'è da sapere per iniziare e crescere come Assistente Tecnico di Laboratorio.</p>
                 <div class="grid">
                     <div class="card" onclick="caricaPagina('pagine/come-diventare-at.html')">
@@ -98,35 +98,34 @@
                 </div>
             </div>
 
-            <div class="category-section" style="background: #fff7f7; border: 2px solid #e63946; padding: 45px 20px; border-radius: 20px; margin-top: 50px; box-shadow: 0 10px 30px rgba(230, 57, 70, 0.08);">
-                <h2 style="color: #d90429; margin-top: 0; font-size: 2.2rem;">📚 I Miei Manuali</h2>
+            <div class="category-section" style="background: #f0f8ff; border: 2px solid #4da6ff; padding: 45px 20px; border-radius: 20px; margin-top: 50px; box-shadow: 0 10px 30px rgba(0, 166, 255, 0.08);">
+                <h2 style="color: var(--secondary); margin-top: 0; font-size: 2.2rem;">📒 I Miei Appunti</h2>
                 <p style="font-size: 1.1rem; color: #444; max-width: 750px; margin: 0 auto 35px auto; line-height: 1.6;">
                     Oltre a questa Officina digitale, ho deciso di mettere la mia esperienza su carta. Ho scritto questi libri per raccogliere i miei appunti quotidiani, le soluzioni ai problemi tecnici più comuni in laboratorio e le esercitazioni per superare i test. In fondo, è il materiale che avrei voluto avere io tra le mani il mio primo giorno di scuola.
                 </p>
                 
                 <div style="display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto;">
                     
-                  
-
-                    <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #e63946; border-top: 1px solid #fee2e2; border-right: 1px solid #fee2e2; border-bottom: 1px solid #fee2e2; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                    <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #80c4ff; border-top: 1px solid #e0f0ff; border-right: 1px solid #e0f0ff; border-bottom: 1px solid #e0f0ff; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                         <img src="img/copertina-oltre-profilo.jpg" alt="Diario di un AT" style="width: 85px; height: auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
                         <div>
-                            <h3 style="margin: 0 0 8px 0; color: #d90429; font-size: 1.3rem;">Diario di un AT di Laboratorio nelle scuole superiori</h3>
-                            <p style="margin: 0; color: #555; font-size: 0.95rem; line-height: 1.5;">La realtà del laboratorio raccontata in prima persona, tra emergenze tecniche e burocrazia. Seguimi durante le mie giornate di lavoro e le strategie per puntare all'avanzamento economico.</p>
+                            <h3 style="margin: 0 0 8px 0; color: var(--secondary); font-size: 1.3rem;">Diario di un AT di laboratorio delle scuole superiori</h3>
+                            <p style="margin: 0; color: #555; font-size: 0.95rem; line-height: 1.5;">Il lavoro del tecnico raccontato in prima persona, tra emergenze informatiche e burocrazia. Seguimi durante le mie giornate di lavoro e le strategie per puntare all'avanzamento economico.</p>
                         </div>
                     </div>
 
-                    <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/03SaaHGU', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #e63946; border-top: 1px solid #fee2e2; border-right: 1px solid #fee2e2; border-bottom: 1px solid #fee2e2; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                    <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/03SaaHGU', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #80c4ff; border-top: 1px solid #e0f0ff; border-right: 1px solid #e0f0ff; border-bottom: 1px solid #e0f0ff; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                         <img src="img/copertina-tutti-possono.jpg" alt="Tutti possono fare l'AT" style="width: 85px; height: auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
                         <div>
-                            <h3 style="margin: 0 0 8px 0; color: #d90429; font-size: 1.3rem;">Tutti possono fare l'AT</h3>
+                            <h3 style="margin: 0 0 8px 0; color: var(--secondary); font-size: 1.3rem;">Tutti possono fare l'Assistente Tecnico</h3>
                             <p style="margin: 0; color: #555; font-size: 0.95rem; line-height: 1.5;">Per tutti coloro che vogliono iscriversi nelle graduatorie come tecnico di laboratorio informatico e hanno timore di non esserne all'altezza una volta chiamati, un manuale sulle richieste tipo che incontrerete durante il vostro lavoro.</p>
                         </div>
                     </div>
-                      <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/0iFVNuCY', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #e63946; border-top: 1px solid #fee2e2; border-right: 1px solid #fee2e2; border-bottom: 1px solid #fee2e2; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+
+                    <div class="manuale-hover" onclick="window.open('https://amzn.eu/d/0iFVNuCY', '_blank')" title="Scoprilo su Amazon" style="background: white; border-radius: 12px; padding: 25px; border-left: 6px solid #80c4ff; border-top: 1px solid #e0f0ff; border-right: 1px solid #e0f0ff; border-bottom: 1px solid #e0f0ff; display: flex; align-items: center; gap: 25px; cursor: pointer; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                         <img src="img/copertina-200quiz.jpg" alt="Quiz dell' AT" style="width: 85px; height: auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);">
                         <div>
-                            <h3 style="margin: 0 0 8px 0; color: #d90429; font-size: 1.3rem;">Quiz dell' AT</h3>
+                            <h3 style="margin: 0 0 8px 0; color: var(--secondary); font-size: 1.3rem;">Quiz dell' Assistente tecnico delle scuole</h3>
                             <p style="margin: 0; color: #555; font-size: 0.95rem; line-height: 1.5;">Manuale di preparazione alla professione e all'esame per le posizioni economiche ATA. Quiz su IA, Digicomp 2.2, gestione documentale, normativa, sicurezza (D.Lgs. 81/08), informatica, reti, casi pratici di laboratorio e aule, differenze tra posizioni economiche.</p>
                         </div>
                     </div>
