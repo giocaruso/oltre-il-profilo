@@ -1,5 +1,14 @@
+<style>
+    /* Regole per effetti hover fluidi e dolci */
+    .btn-speciale { transition: all 0.3s ease !important; }
+    .btn-speciale:hover { transform: translateY(-4px) !important; box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; filter: brightness(1.15) !important; }
+    
+    .card-hover { transition: all 0.3s ease !important; }
+    .card-hover:hover { transform: translateY(-4px) !important; box-shadow: 0 10px 25px rgba(0, 74, 153, 0.15) !important; background-color: #f0f7ff !important; border-color: var(--primary) !important; }
+</style>
+
 <div class="section" style="display: block;">
-    <button onclick="tornaAllHub()" class="btn-back-hub">← Torna all'Hub</button>
+     <button onclick="tornaAllHub()" class="btn-back-hub">← Torna all'Officina</button>
     <div style="max-width: 800px; margin: 0 auto;">
         <h2 style="color: var(--secondary); text-align: center; margin-bottom: 20px; font-size: 2.2rem;">L'Avanzamento di Carriera</h2>
         <p style="font-size: 1.1rem; line-height: 1.6; color: #555; text-align: center; margin-bottom: 40px;">
@@ -26,31 +35,44 @@
             <p style="margin-top: 0; margin-bottom: 0;">Assolutamente sì. Tramite la cosiddetta mobilità professionale (o passaggi verticali), un Assistente Tecnico che possiede i titoli di studio necessari può chiedere il passaggio al profilo di Docente Tecnico Pratico (ITP) oppure, maturando l'esperienza richiesta, può puntare al ruolo di DSGA (Direttore dei Servizi Generali e Amministrativi) o fare da "Facente Funzione".</p>
         </div>
 
-        <div style="background: #e3ecf5; padding: 35px 30px; border-radius: 12px; margin-bottom: 20px; border: 2px solid var(--primary); position: relative;">
-            <div style="position: absolute; top: -15px; left: 30px; background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
-                Il mio consiglio personale
-            </div>
-            <h3 style="color: var(--secondary); margin-top: 10px; margin-bottom: 15px; font-size: 1.4rem;">Andare "Oltre il profilo"</h3>
-            <p style="margin-top: 0; margin-bottom: 15px; font-size: 1.05rem; color: #333; line-height: 1.6;">
-                Quando ho iniziato, cercare informazioni chiare su come crescere in questa professione era un'impresa. Spesso mi chiedete come affrontare la quotidianità del laboratorio, come non farsi trovare impreparati o come studiare per ottenere le tanto desiderate Posizioni Economiche.
-            </p>
-            <p style="margin-top: 0; margin-bottom: 25px; font-size: 1.05rem; color: #333; line-height: 1.6;">
-                Proprio per questo ho deciso di mettere nero su bianco la mia esperienza. Nel mio libro <strong>"Diario di un AT"</strong> ho racchiuso i miei appunti personali, i casi pratici che affronto ogni giorno e un'intera sezione dedicata ad andare <em>oltre il semplice profilo</em>, puntando alla preparazione per gli scatti economici. Non è teoria noiosa, è pura vita da laboratorio.
+        <div style="background: white; border: 2px solid var(--primary); padding: 35px; border-radius: 20px; margin-top: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <h3 style="color: var(--secondary); margin-top: 0; text-align: center; font-size: 1.6rem;">Come prepararsi al salto di qualità?</h3>
+            <p style="text-align: center; font-size: 1.05rem; color: #444; margin-bottom: 30px; line-height: 1.6;">
+                Quando ho iniziato, cercare informazioni chiare su come crescere in questa professione era un'impresa. Spesso ci si chiede come affrontare i test per le Posizioni Economiche o come gestire i casi pratici in laboratorio. Per questo ho deciso di mettere a disposizione i miei appunti: per aiutarvi ad andare oltre il semplice profilo.
             </p>
             
-            <div style="text-align: left;">
-                <button class="btn" style="width: auto; padding: 12px 25px; font-size: 1rem; background-color: var(--primary);" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')">Scopri il mio Diario su Amazon</button>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                
+                <div class="card-hover" style="background: #fafcff; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e3ecf5; cursor: pointer;" onclick="window.open('https://amzn.eu/d/005dvtg0', '_blank')" title="Scoprilo su Amazon">
+                    <img src="img/copertina-oltre-profilo.jpg" alt="Diario di un AT" style="width: 120px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); margin-bottom: 15px;">
+                    <h4 style="margin: 0 0 8px 0; color: var(--primary); font-size: 1.1rem;">Diario di un AT</h4>
+                    <p style="margin: 0; font-size: 0.9rem; color: #555; line-height: 1.4;">Casi pratici e vita da laboratorio per puntare agli scatti economici.</p>
+                </div>
+
+                <div class="card-hover" style="background: #fafcff; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e3ecf5; cursor: pointer;" onclick="window.open('https://amzn.eu/d/0iFVNuCY', '_blank')" title="Scoprilo su Amazon">
+                    <img src="img/copertina-200quiz.jpg" alt="Quiz 200" style="width: 120px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); margin-bottom: 15px;">
+                    <h4 style="margin: 0 0 8px 0; color: var(--primary); font-size: 1.1rem;">Quiz dell' AT</h4>
+                    <p style="margin: 0; font-size: 0.9rem; color: #555; line-height: 1.4;">Eserciziari mirati per misurare il livello di competenza professionale.</p>
+                </div>
+
+                <div class="card-hover" style="background: #fafcff; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e3ecf5; cursor: pointer;" onclick="window.open('https://amzn.eu/d/03SaaHGU', '_blank')" title="Scoprilo su Amazon">
+                    <img src="img/copertina-tutti-possono.jpg" alt="Tutti possono fare l'AT" style="width: 120px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); margin-bottom: 15px;">
+                    <h4 style="margin: 0 0 8px 0; color: var(--primary); font-size: 1.1rem;">Tutti possono farlo</h4>
+                    <p style="margin: 0; font-size: 0.9rem; color: #555; line-height: 1.4;">La guida di base per orientarsi nelle graduatorie e nell'ambiente scolastico.</p>
+                </div>
+
             </div>
         </div>
         
-        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #ddd; text-align: center;">
-            <p style="font-size: 1.1rem; color: var(--secondary); font-weight: bold; margin-bottom: 15px;">Vuoi restare sempre aggiornato su normative e concorsi ATA?</p>
-            <button class="btn" style="width: auto; padding: 10px 25px; font-size: 1rem; margin-bottom: 30px;" onclick="caricaPagina('pagine/newsletter.html')">📩 Iscriviti alla Newsletter</button>
-            
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <button class="btn-back-hub" style="margin-bottom: 0;" onclick="caricaPagina('pagine/cosa-fa-un-tecnico.html')">← Cosa fa un tecnico</button>
-                <button class="btn" style="width: auto; margin-bottom: 0;" onclick="caricaPagina('pagine/corsi-formazione.html')">Corsi e Formazione →</button>
-            </div>
+        <div style="margin-top: 25px; padding: 15px 20px; background-color: #f4f7fa; border-radius: 12px; margin-bottom: 30px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 15px; font-size: 0.95rem; border: 1px solid #e9ecef;">
+            <p style="color: var(--secondary); font-weight: bold; margin: 0;">Resta aggiornato sulle novità dell'Officina AT:</p>
+            <button class="btn btn-speciale" style="width: auto; padding: 6px 15px; font-size: 0.9rem; background-color: white; color: var(--primary); border: 2px solid var(--primary); margin: 0; box-shadow: none;" onclick="caricaPagina('pagine/newsletter.html')">📩 Newsletter</button>
+        </div>
+        
+        <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+            <button class="btn" style="margin: 0; width: 220px; padding: 12px 15px; font-size: 0.95rem; background-color: var(--secondary);" onclick="caricaPagina('pagine/cosa-fa-un-tecnico.html')">← Cosa fa un tecnico</button>
+            <button class="btn" style="margin: 0; width: 220px; padding: 12px 15px; font-size: 0.95rem; background-color: #f4f7fa; color: var(--primary); border: 2px solid var(--primary);" onclick="tornaAllHub()">🏠 Torna all'Officina</button>
+            <button class="btn" style="margin: 0; width: 220px; padding: 12px 15px; font-size: 0.95rem; background-color: var(--primary);" onclick="caricaPagina('pagine/link-utili.html')">Link Utili →</button>
         </div>
     </div>
 </div>

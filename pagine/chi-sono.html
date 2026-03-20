@@ -1,78 +1,36 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi sono - Assistente Tecnico ATA</title>
-    <style>
-        :root { 
-            --primary: #004a99; 
-            --secondary: #002d5d; 
-            --bg: #f4f7fa; 
-            --text: #2c3e50; 
-        }
+<div class="section" style="display: block; padding: 0;">
+    
+    <div style="background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 25px 20px; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h1 style="margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;">Assistente Tecnico ATA</h1>
+        <p style="margin: 5px 0 0 0; font-size: 1rem; opacity: 0.9;">Supporto digitale e risorse interattive per l'AT di laboratorio</p>
+    </div>
 
-        body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            margin: 0; 
-            line-height: 1.6; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-        }
-
-        .hero { background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%); color: white; padding: 40px 20px; text-align: center; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
-        .btn-back { display: inline-block; margin-top: 15px; color: white; text-decoration: none; font-weight: bold; border: 1px solid white; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
-        .btn-back:hover { background: white; color: var(--primary); }
-
-        .container { flex-grow: 1; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        .content-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 20px 40px 20px;">
         
-        .content-box p { font-size: 1.05rem; color: #444; margin-bottom: 20px; }
-
-        .collage-img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px 0; border: 1px solid rgba(0, 0, 0, 0.05); display: block; }
-
-        .contatti-section { margin-top: 20px; text-align: center; padding: 30px; border: 2px dashed rgba(0, 74, 153, 0.2); border-radius: 15px; background: #ebf2f9; }
-        .btn-google { display: inline-block; background-color: var(--primary); color: white; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; text-decoration: none; transition: 0.3s; border: none; }
-        .btn-google:hover { background: var(--secondary); transform: scale(1.05); }
-
-        .footer { background-color: var(--secondary); color: #d1d9e6; text-align: center; padding: 30px 20px; margin-top: 40px; border-top-left-radius: 40px; border-top-right-radius: 40px; }
-        .footer-container { max-width: 900px; margin: 0 auto; }
-        .footer a { color: #d1d9e6; text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
-
-    <header class="hero">
-        <h1>Assistente Tecnico ATA</h1>
-        <p>Supporto digitale e risorse interattive per l'AT di laboratorio</p>
-        <a href="index.html" class="btn-back">← Home</a>
-    </header>
-
-    <div class="container">
-        <div class="content-box">
+        <button onclick="tornaAllHub()" class="btn-back-hub" style="margin-top: 0; margin-bottom: 20px;">← Torna all'Officina</button>
+        
+        <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left;">
             
-            <h2 style="color: var(--secondary); margin-top: 0;">Piacere, Giovanni.</h2>
-            <p>Faccio parte del personale ATA e sono un tecnico di laboratorio informatico da quasi 10 anni. Mi appoggio all'esperienza di tecnici più esperti, da cui ogni giorno cerco di apprendere e migliorare.</p>
-            <p>Il mio è un mestiere strano: mi sono diplomato nel 2002 e nella mia scuola si intravedevono i primi laboratorio di informatica, per cui quello che so l'ho imparato strada facendo. È anche per questo che ho sempre avuto una profonda passione per le storie di persone che, armate solo di creatività e con pochissimi fondi a disposizione, riescono a dare vita a qualcosa di utile per tutti. In fondo, riflette molto lo spirito di adattamento del nostro lavoro in laboratorio.</p>
-            <p>Lungo il cammino mi sono chiesto che sarebbe stato molto più facile per me se mi avessero dato una guida, un manuale. E così l'idea di scrivere qualcosa sul mio quotidiano. Quando ne parlo con i miei colleghi più anziani, mi rispondono che, ai loro tempi, neppure internet esisteva, per cui si sono dovuti arrangiare, imparando sul campo.</p>
-            <p>Spero che questa mia iniziativa possa aiutarvi.</p>
+            <h2 style="color: var(--secondary); margin-top: 0; font-size: 2.2rem;">Piacere, Giovanni.</h2>
+            
+            <p style="font-size: 1.05rem; color: #444; margin-bottom: 20px; line-height: 1.6;">Faccio parte del personale ATA e sono un tecnico di laboratorio informatico da quasi 10 anni. Mi appoggio all'esperienza di tecnici più esperti, da cui ogni giorno cerco di apprendere e migliorare.</p>
+            
+            <p style="font-size: 1.05rem; color: #444; margin-bottom: 20px; line-height: 1.6;">Il mio è un mestiere strano: mi sono diplomato nel 2002 e nella mia scuola si intravedevano i primi laboratori di informatica, per cui quello che so l'ho imparato strada facendo. È anche per questo che ho sempre avuto una profonda passione per le storie di persone che, armate solo di creatività e con pochissimi fondi a disposizione, riescono a dare vita a qualcosa di utile per tutti. In fondo, riflette molto lo spirito di adattamento del nostro lavoro in laboratorio.</p>
+            
+            <p style="font-size: 1.05rem; color: #444; margin-bottom: 20px; line-height: 1.6;">Lungo il cammino mi sono chiesto che sarebbe stato molto più facile per me se mi avessero dato una guida, un manuale. E così l'idea di scrivere qualcosa sul mio quotidiano. Quando ne parlo con i miei colleghi più anziani, mi rispondono che, ai loro tempi, neppure internet esisteva, per cui si sono dovuti arrangiare, imparando sul campo.</p>
+            
+            <p style="font-size: 1.05rem; color: #444; margin-bottom: 20px; line-height: 1.6;">Spero che questa mia iniziativa possa aiutarvi.</p>
 
-            <img src="img/assistente-tecnico-collage.jpg" alt="Collage vita in laboratorio" class="collage-img">
+            <img src="img/assistente-tecnico-collage.jpg" alt="Collage vita in laboratorio" style="width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 30px 0; border: 1px solid rgba(0, 0, 0, 0.05); display: block;">
 
-            <div id="contatti" class="contatti-section">
-                <h3 style="color: var(--secondary); margin-top: 0;">Mettiamoci in contatto</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 25px;">Vuoi condividere un'esperienza di laboratorio o semplicemente scambiare un parere tecnico? Scrivimi qui sotto.</p>
+            <div id="contatti" style="margin-top: 20px; text-align: center; padding: 30px; border: 2px dashed rgba(0, 74, 153, 0.2); border-radius: 15px; background: #ebf2f9;">
+                <h3 style="color: var(--secondary); margin-top: 0; font-size: 1.5rem;">Mettiamoci in contatto</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 25px; color: #555;">Vuoi condividere un'esperienza di laboratorio o semplicemente scambiare un parere tecnico? Scrivimi qui sotto.</p>
                 
-                <a href="https://forms.gle/tBBj4GJdWjCmwidp8" target="_blank" class="btn-google">Invia un Messaggio</a>
-                <p style="font-size: 0.8rem; color: #666; margin-top: 15px; opacity: 0.8;">Verrai reindirizzato a un modulo Google sicuro per proteggere la privacy e ridurre lo spam.</p>
+                <a href="https://forms.gle/tBBj4GJdWjCmwidp8" target="_blank" class="btn" style="display: inline-block; text-decoration: none; width: auto; padding: 15px 30px; margin-bottom: 0;">Invia un Messaggio</a>
+                <p style="font-size: 0.85rem; color: #666; margin-top: 15px; margin-bottom: 0; font-style: italic;">Verrai reindirizzato a un modulo Google sicuro per proteggere la privacy e ridurre lo spam.</p>
             </div>
+
         </div>
     </div>
-  <div id="footer-placeholder"></div>
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
