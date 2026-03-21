@@ -11,7 +11,17 @@
     
     <link rel="stylesheet" href="style.css">
     
-    <style>
+   <style>
+        /* FIX DEFINITIVO: Impedisce che bordi e padding allarghino gli elementi */
+        *, *::before, *::after {
+            box-sizing: border-box !important;
+        }
+
+        /* Forza la barra di scorrimento sempre visibile per evitare salti */
+        html {
+            overflow-y: scroll !important;
+        }
+
         /* Regola per compattare lo spazio del footer e avvicinare il Copyright */
         footer, #footer-placeholder > div, .footer {
             padding-top: 15px !important;
