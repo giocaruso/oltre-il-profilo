@@ -1,61 +1,50 @@
 <div class="section" style="display: block;">
     
     <div style="text-align: left; margin-bottom: 20px;">
-        <button onclick="caricaPagina('pagine/area-test.html')" class="btn-back-hub" style="margin: 0;">← Indietro</button>
+        <button onclick="caricaPagina('pagine/Quiz-assistente-tecnico-manuale-3.html')" class="btn-back-hub" style="margin: 0;">← Indietro</button>
     </div>
-    
-    <div style="max-width: 900px; margin: 0 auto;">
-        <h2 style="color: var(--secondary); text-align: center; margin-bottom: 30px; font-size: 2rem;">Quiz dell'AT: Preparazione e Competenze</h2>
+
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
         
-        <div class="quiz-intro-wrapper">
-            <a href="https://amzn.eu/d/0iFVNuCY" target="_blank" class="quiz-cover-link" title="Acquista o visualizza su Amazon">
-                <img src="img/copertina-200quiz.jpg" alt="Copertina Quiz 200" class="quiz-cover-img">
-            </a>
-            
-            <div>
-                <p style="font-size: 1.05rem; margin-top: 0; line-height: 1.6;">
-                    Questo simulatore contiene le 200 domande interattive tratte dal mio libro: <br>
-                    <a href="https://amzn.eu/d/0iFVNuCY" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: underline;"><em>"Quiz dell'Assistente Tecnico delle scuole"</em></a>.
-                </p>
+        <div style="margin-bottom: 40px;">
+            <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">🛠️</span>
+            <h2 style="color: var(--secondary); margin-bottom: 10px; font-size: 2.2rem;">Cruscotto Quiz AT</h2>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 40px;">Seleziona la modalità di allenamento per i 200 quesiti del manuale.</p>
+        </div>
 
-                <div style="background: var(--bg); padding: 20px; border-radius: 12px; border: 1px dashed var(--primary); margin-top: 20px; margin-bottom: 30px;">
-                    <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Come accedere:</p>
-                    <p style="margin-bottom: 15px; font-size: 0.95rem;">Prendi una copia del manuale, cerca la spiegazione relativa alla <strong>domanda n. 187</strong> e inserisci qui sotto la <strong>prima parola</strong> esatta di quel testo.</p>
-                    
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                        <input type="password" id="pass-word" placeholder="Parola segreta..." style="padding:12px; border-radius:8px; border:1px solid #ccc; flex: 1; min-width: 200px; font-size: 1rem; margin-bottom: 0;">
-                        <button onclick="sbloccaSimulatore()" class="btn">Sblocca Simulatore</button>
-                    </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;">
+            <div style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid var(--primary); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">⏱️</span>
+                    <h3 style="color: var(--secondary); margin-bottom: 10px;">Simulazione Esame</h3>
+                    <p style="font-size: 0.95rem; color: #666; margin-bottom: 20px;">20 domande casuali dall'intero database. Feedback immediato dopo ogni risposta.</p>
                 </div>
+                <button class="btn" style="width: 100%; margin: 0;" onclick="avviaSimulazione('quiz-at-200.json', 'random', 20)">Inizia Test</button>
+            </div>
 
-                <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px;">
-                    Uno strumento pensato per misurare il livello di competenza professionale e prepararsi ai passaggi per le <strong>posizioni economiche ATA</strong> attraverso un metodo di apprendimento attivo.
-                </p>
-                
-                <div style="margin-top: 20px; text-align: left;">
-                    <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Cosa troverai in questo simulatore:</p>
-                    <ul style="line-height: 1.6; padding-left: 20px; margin-top: 5px;">
-                        <li style="margin-bottom: 8px;"><strong>200 Quiz Mirati:</strong> Normativa, sicurezza, gestione documentale, informatica e IA.</li>
-                        <li style="margin-bottom: 8px;"><strong>Soluzioni Commentate:</strong> Ogni risposta include una spiegazione rapida per un ripasso immediato.</li>
-                        <li><strong>Sistema Random:</strong> L'algoritmo rimescola le domande a ogni avvio per evitare l'apprendimento mnemonico.</li>
-                    </ul>
+            <div style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">🏃‍♂️</span>
+                    <h3 style="color: var(--secondary); margin-bottom: 10px;">Maratona 200</h3>
+                    <p style="font-size: 0.95rem; color: #666; margin-bottom: 20px;">Affronta tutte le domande in ordine numerico per non saltare nulla.</p>
                 </div>
-
-                <div style="margin-top: 25px; text-align: left;">
-                    <p style="margin-top: 0; font-weight: bold; color: var(--secondary);">Argomenti principali:</p>
-                    <ul style="line-height: 1.6; padding-left: 20px; margin-top: 5px;">
-                        <li style="margin-bottom: 8px;"><strong>DigComp 2.2:</strong> Le competenze digitali richieste nella Pubblica Amministrazione.</li>
-                        <li style="margin-bottom: 8px;"><strong>Sicurezza (D.Lgs. 81/08):</strong> La gestione dei rischi nei laboratori scolastici.</li>
-                        <li><strong>Informatica e Reti:</strong> Hardware, software e piattaforme ministeriali.</li>
-                    </ul>
-                </div>
-
+                <button class="btn" style="width: 100%; margin: 0; background-color: #78909c;" onclick="avviaSimulazione('quiz-at-200.json', 'all', 200)">Inizia Maratona</button>
             </div>
         </div>
-        
-    </div>
-    
-    <div style="text-align: center;">
-        <button onclick="tornaAllHub()" class="btn-back-hub" style="margin-top: 20px;">← Torna all'Officina</button>
+
+        <div style="background: #f4f7fa; border-radius: 12px; padding: 25px; border: 1px dashed var(--primary); margin-bottom: 50px;">
+            <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px;">🎯 Allenamento Mirato per Argomento</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Normativa e Carriera')">⚖️ Normativa</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Gestione Laboratorio')">🛠️ Laboratorio</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Informatica e DigComp')">💻 Informatica</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Sicurezza')">🧯 Sicurezza</button>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #eee; padding-top: 30px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center;">
+            <button onclick="tornaAllHub()" class="btn-back-hub" style="margin: 0; background: #eee; color: #333;">🏠 Home Hub</button>
+            <button onclick="vaiANewsletter()" style="background: none; border: none; color: var(--primary); font-weight: bold; text-decoration: none; cursor: pointer; font-family: inherit; font-size: 1rem;">📩 Iscriviti alla Newsletter</button>
+        </div>
     </div>
 </div>
