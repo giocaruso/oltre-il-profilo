@@ -1,0 +1,69 @@
+<div class="section" style="display: block;">
+    
+    <div style="text-align: left; margin-bottom: 20px;">
+        <button onclick="caricaPagina('pagine/Quiz-assistente-tecnico-manuale-3.html')" class="btn-back-hub" style="margin: 0;">← Indietro</button>
+    </div>
+
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        
+        <div style="margin-bottom: 40px;">
+            <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">🛠️</span>
+            <h2 style="color: var(--secondary); margin-bottom: 10px; font-size: 2.2rem;">Cruscotto Quiz dell'Assistente tecnico delle scuole</h2>
+            <p style="font-size: 1.1rem; color: #555; margin-bottom: 40px;">Seleziona la modalità di allenamento per i 200 quesiti del manuale.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            <div style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid var(--primary); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">⏱️</span>
+                    <h3 style="color: var(--secondary); margin-bottom: 10px;">Simulazione Esame</h3>
+                    <p style="font-size: 0.95rem; color: #666; margin-bottom: 20px;">20 domande casuali dall'intero database. Feedback immediato dopo ogni risposta.</p>
+                </div>
+                <button class="btn" style="width: 100%; margin: 0;" onclick="avviaSimulazione('quiz-at-200.json', 'random', 20)">Inizia Test</button>
+            </div>
+
+            <div style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <span style="font-size: 2.5rem; display: block; margin-bottom: 15px;">🏃‍♂️</span>
+                    <h3 style="color: var(--secondary); margin-bottom: 10px;">Maratona 200</h3>
+                    <p style="font-size: 0.95rem; color: #666; margin-bottom: 20px;">Affronta tutte e 200 le domande: l'ordine cambierà ad ogni accesso per garantirti un allenamento reale e non mnemonico.</p>
+                </div>
+                <button class="btn" style="width: 100%; margin: 0; background-color: #ffa600;" onclick="avviaSimulazione('quiz-at-200.json', 'all', 200)">Inizia Maratona</button>
+            </div>
+        </div>
+
+        <div style="background: white; border-radius: 12px; padding: 20px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #cbd5e0; margin-bottom: 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 2rem;">🎛️</span>
+                <div style="text-align: left;">
+                    <h3 style="color: var(--secondary); margin: 0 0 5px 0; font-size: 1.2rem;">Quiz su Misura</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">Scegli il numero di domande casuali per il tuo allenamento rapido.</p>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <select id="custom-q-num" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e0; font-size: 1rem; outline: none; background: #f8fbff; color: var(--secondary); font-weight: bold;">
+                    <option value="10">10 domande</option>
+                    <option value="30">30 domande</option>
+                    <option value="50">50 domande</option>
+                    <option value="100">100 domande</option>
+                </select>
+                <button class="btn" style="margin: 0; padding: 10px 20px; width: auto;" onclick="avviaSimulazione('quiz-at-200.json', 'random', parseInt(document.getElementById('custom-q-num').value))">Avvia →</button>
+            </div>
+        </div>
+
+        <div style="background: #f4f7fa; border-radius: 12px; padding: 25px; border: 1px dashed var(--primary); margin-bottom: 50px;">
+            <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 20px;">🎯 Allenamento Mirato per Argomento</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Normativa e Carriera')">⚖️ Normativa</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Gestione Laboratorio')">🛠️ Laboratorio</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Informatica e DigComp')">💻 Informatica</button>
+                <button class="btn" style="margin: 0; background: white; color: var(--secondary); border: 1px solid #cbd5e0;" onclick="avviaSimulazione('quiz-at-200.json', 'categoria', 'Sicurezza')">🧯 Sicurezza</button>
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #eee; padding-top: 30px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center;">
+            <button class="btn" style="margin: 0; width: auto; min-width: 200px; padding: 12px 15px; font-size: 0.95rem; background-color: #f4f7fa; color: var(--primary); border: 2px solid var(--primary);" onclick="tornaAllHub()">🔧 Torna in Officina</button>
+            <button onclick="vaiANewsletter()" style="background: none; border: none; color: var(--primary); font-weight: bold; text-decoration: none; cursor: pointer; font-family: inherit; font-size: 1rem;">📩 Iscriviti alla Newsletter</button>
+        </div>
+    </div>
+</div>
