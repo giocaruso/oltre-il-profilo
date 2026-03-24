@@ -29,7 +29,7 @@ async function caricaPagina(urlFile) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         sessionStorage.setItem('paginaSalvata', urlFile);
 
-        if (urlFile.includes('motore-quiz-200-at.html')) {
+        if (urlFile.includes('motore-quiz-manuale-3-at.html')) {
             setTimeout(inizializzaQuiz, 150);
         }
 
@@ -75,7 +75,7 @@ function sbloccaSimulatore() {
     const pwd = inputPwd.value.trim().toLowerCase();
 
     if (btoa(pwd) === SECRET_HASH) {
-        caricaPagina('pagine/simulatore-quiz-at-200.html');
+        caricaPagina('pagine/cruscotto-quiz-manuale-3-at.html');
     } else {
         alert("Password errata! Controlla la chiave indicata nel manuale.");
     }
@@ -119,7 +119,7 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
             sessionStorage.setItem('domandeCorrenti', JSON.stringify(selezionate));
             sessionStorage.setItem('titoloQuiz', titoloVisibile); 
 
-            caricaPagina('pagine/motore-quiz-200-at.html');
+            caricaPagina('pagine/motore-quiz-manuale-3-at.html');
         })
         .catch(error => {
             console.error(error);
