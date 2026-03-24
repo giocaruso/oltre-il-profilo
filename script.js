@@ -100,12 +100,14 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
                 titoloVisibile = "Simulazione Esame (" + filtro + " quesiti)";
             } 
             else if (modalita === 'categoria') {
-                selezionate = data.filter(d => d.categoria.trim() === filtro.trim());
+                // FIX: Aggiunto d.categoria && per prevenire blocchi se il JSON ha campi vuoti
+                selezionate = data.filter(d => d.categoria && d.categoria.trim() === filtro.trim());
                 selezionate = selezionate.sort(() => 0.5 - Math.random());
                 titoloVisibile = "Argomento: " + filtro; 
             } 
             else if (modalita === 'all') {
-                selezionate = data.sort((a, b) => a.id - b.id);
+                // FIX: Modificato per rimescolare le 200 domande in ordine casuale
+                selezionate = data.sort(() => 0.5 - Math.random());
                 titoloVisibile = "Maratona Completa (" + filtro + " quesiti)";
             }
 
