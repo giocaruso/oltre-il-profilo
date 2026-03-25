@@ -63,6 +63,12 @@ function vaiANewsletter() {
     }, 150);
 }
 
+// NUOVA FUNZIONE: Gestisce l'uscita dinamica dal motore quiz
+function esciDalQuiz() {
+    const urlRitorno = sessionStorage.getItem('cruscottoRitorno') || 'pagine/area-test.html';
+    caricaPagina(urlRitorno);
+}
+
 // ==========================================
 // --- GESTIONE PASSWORD ---
 // ==========================================
@@ -100,13 +106,11 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
                 titoloVisibile = "Simulazione Esame (" + filtro + " quesiti)";
             } 
             else if (modalita === 'categoria') {
-                // FIX: Aggiunto d.categoria && per prevenire blocchi se il JSON ha campi vuoti
                 selezionate = data.filter(d => d.categoria && d.categoria.trim() === filtro.trim());
                 selezionate = selezionate.sort(() => 0.5 - Math.random());
                 titoloVisibile = "Argomento: " + filtro; 
             } 
             else if (modalita === 'all') {
-                // FIX: Modificato per rimescolare le 200 domande in ordine casuale
                 selezionate = data.sort(() => 0.5 - Math.random());
                 titoloVisibile = "Maratona Completa (" + filtro + " quesiti)";
             }
@@ -115,6 +119,13 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
                 alert("Nessuna domanda trovata per la categoria selezionata.");
                 return;
             }
+
+            // SALVATAGGIO DEL "SEGNALIBRO" DI RITORNO
+            let urlRitorno = 'pagine/cruscotto-quiz-manuale-3-at.html';
+            if (sorgenteJson.includes('antincendio')) {
+                urlRitorno = 'pagine/formazione-antincendio-at.html';
+            }
+            sessionStorage.setItem('cruscottoRitorno', urlRitorno);
 
             sessionStorage.setItem('domandeCorrenti', JSON.stringify(selezionate));
             sessionStorage.setItem('titoloQuiz', titoloVisibile); 
