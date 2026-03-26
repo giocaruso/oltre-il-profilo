@@ -124,7 +124,7 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
             // SALVATAGGIO DEL "SEGNALIBRO" DI RITORNO
             let urlRitorno = 'pagine/cruscotto-quiz-manuale-3-at.html';
             if (sorgenteJson.includes('antincendio')) {
-                urlRitorno = 'pagine/formazione-antincendio-at.html';
+                urlRitorno = 'pagine/cruscotto-quiz-antincendio-at.html';
             }
             sessionStorage.setItem('cruscottoRitorno', urlRitorno);
 
