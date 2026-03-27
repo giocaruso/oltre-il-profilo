@@ -91,7 +91,8 @@ function sbloccaSimulatore() {
 // --- LOGICA DI AVVIO DELLE MODALITÀ ---
 // ==========================================
 
-function avviaSimulazione(sorgenteJson, modalita, filtro) {
+// AGGIORNATO: Aggiunto il parametro opzionale nomeTest per ricevere il titolo dal cruscotto
+function avviaSimulazione(sorgenteJson, modalita, filtro, nomeTest = "") {
     fetch('json/' + sorgenteJson) 
         .then(response => {
             if (!response.ok) throw new Error('Database quiz non trovato.');
@@ -99,21 +100,20 @@ function avviaSimulazione(sorgenteJson, modalita, filtro) {
         })
         .then(data => {
             let selezionate = [];
-            let titoloVisibile = "Quiz Assistente Tecnico"; 
+            let titoloVisibile = nomeTest || "Quiz Assistente Tecnico"; 
 
             if (modalita === 'random') {
                 selezionate = data.sort(() => 0.5 - Math.random()).slice(0, filtro);
-                titoloVisibile = "Simulazione Esame (" + filtro + " quesiti)";
+                titoloVisibile = nomeTest ? nomeTest + " (" + filtro + " quesiti)" : "Simulazione Esame (" + filtro + " quesiti)";
             } 
             else if (modalita === 'categoria') {
                 selezionate = data.filter(d => d.categoria && d.categoria.trim() === filtro.trim());
                 selezionate = selezionate.sort(() => 0.5 - Math.random());
-                titoloVisibile = "Argomento: " + filtro; 
+                titoloVisibile = nomeTest ? nomeTest + " - " + filtro : "Argomento: " + filtro; 
             } 
             else if (modalita === 'all') {
                 selezionate = data.sort(() => 0.5 - Math.random());
-                // AGGIORNATO: Ora conta dinamicamente le domande reali nel JSON!
-                titoloVisibile = "Maratona Completa (" + selezionate.length + " quesiti)";
+                titoloVisibile = nomeTest ? nomeTest + " (" + selezionate.length + " quesiti)" : "Maratona Completa (" + selezionate.length + " quesiti)";
             }
 
             if (selezionate.length === 0) {
@@ -168,8 +168,21 @@ function mostraDomanda() {
     const q = currentQuestions[currentIndex];
     const container = document.getElementById('options-container');
     const feedbackBox = document.getElementById('feedback-box');
+    const btnPrev = document.getElementById('btn-prev'); 
+    const progressBar = document.getElementById('progress-bar-fill'); 
     
     if (!q) return;
+
+    // Gestione visibilità Tasto Indietro
+    if (btnPrev) {
+        btnPrev.style.display = (currentIndex > 0) ? 'inline-block' : 'none';
+    }
+
+    // Calcolo Barra di avanzamento
+    if (progressBar) {
+        const percentuale = (currentIndex / currentQuestions.length) * 100;
+        progressBar.style.width = percentuale + '%';
+    }
 
     if (feedbackBox) feedbackBox.style.display = 'none';
     if (container) container.innerHTML = '';
@@ -182,37 +195,100 @@ function mostraDomanda() {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = opzione;
-        btn.onclick = () => verificaRisposta(index, btn);
+        
+        // Verifica se l'utente aveva già risposto a questa domanda (Ripasso)
+        if (q.rispostaUtente !== undefined) {
+            btn.disabled = true;
+            if (index === q.corretta) {
+                btn.classList.add('correct');
+            } else if (index === q.rispostaUtente) {
+                btn.classList.add('wrong');
+            }
+        } else {
+            // Se è la prima volta che vede la domanda, assegna l'evento click
+            btn.onclick = () => verificaRisposta(index, btn);
+        }
+        
         container.appendChild(btn);
     });
+
+    // Mostra il feedback immediatamente se stiamo ripassando una domanda già risposta
+    if (q.rispostaUtente !== undefined) {
+        mostraFeedback(q.rispostaUtente === q.corretta, q);
+    }
 }
 
-function verificaRisposta(selectedIndex, clickedBtn) {
-    const q = currentQuestions[currentIndex];
-    const buttons = document.querySelectorAll('.option-btn');
+// Funzione helper per gestire la grafica del feedback
+function mostraFeedback(isCorrect, q) {
     const feedbackBox = document.getElementById('feedback-box');
     
-    buttons.forEach(btn => btn.disabled = true);
-
-    if (selectedIndex === q.corretta) {
-        clickedBtn.classList.add('correct');
+    if (isCorrect) {
         document.getElementById('feedback-status').innerText = "✅ Risposta Esatta!";
         feedbackBox.style.backgroundColor = "#f0fff4";
         document.getElementById('feedback-status').style.color = "#2f855a";
-        score++;
     } else {
-        clickedBtn.classList.add('wrong');
-        buttons[q.corretta].classList.add('correct'); 
         document.getElementById('feedback-status').innerText = "❌ Risposta non corretta";
         feedbackBox.style.backgroundColor = "#fff5f5";
         document.getElementById('feedback-status').style.color = "#c53030";
     }
 
-    document.getElementById('feedback-explanation').innerText = q.spiegazione;
-    document.getElementById('feedback-ref').innerText = q._ref || "";
+    // Gestione gracefully dell'assenza di spiegazioni (es. test antincendio)
+    const expElement = document.getElementById('feedback-explanation');
+    if (expElement) {
+        if (q.spiegazione) {
+            expElement.innerText = q.spiegazione;
+            expElement.style.display = 'block';
+        } else {
+            expElement.style.display = 'none';
+        }
+    }
+
+    const refElement = document.getElementById('feedback-ref');
+    if (refElement) {
+        if (q._ref) {
+            refElement.innerText = q._ref;
+            refElement.parentElement.style.display = 'block'; // Mostra l'intera riga se c'è il riferimento
+        } else {
+            refElement.parentElement.style.display = 'none'; // Nasconde l'intera riga (compresa la scritta fissa) se manca
+        }
+    }
+
     feedbackBox.style.display = 'block';
     
     document.getElementById('score-display').innerText = score;
+}
+
+function verificaRisposta(selectedIndex, clickedBtn) {
+    const q = currentQuestions[currentIndex];
+    
+    // Evita doppi click o alterazioni se c'è già una risposta
+    if (q.rispostaUtente !== undefined) return;
+    
+    // Salva la scelta dell'utente in memoria
+    q.rispostaUtente = selectedIndex;
+
+    const buttons = document.querySelectorAll('.option-btn');
+    buttons.forEach(btn => btn.disabled = true);
+
+    const isCorrect = (selectedIndex === q.corretta);
+    
+    if (isCorrect) {
+        clickedBtn.classList.add('correct');
+        score++;
+    } else {
+        clickedBtn.classList.add('wrong');
+        buttons[q.corretta].classList.add('correct'); 
+    }
+
+    mostraFeedback(isCorrect, q);
+}
+
+// NUOVA FUNZIONE: Tasto Indietro
+function domandaPrecedente() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        mostraDomanda();
+    }
 }
 
 function prossimaDomanda() {
@@ -225,6 +301,9 @@ function prossimaDomanda() {
 }
 
 function mostraRisultatoFinale() {
+    const progressBar = document.getElementById('progress-bar-fill'); 
+    if (progressBar) progressBar.style.width = '100%'; // Completa la barra
+
     document.getElementById('question-box').style.display = 'none';
     document.getElementById('feedback-box').style.display = 'none';
     document.getElementById('result-box').style.display = 'block';
