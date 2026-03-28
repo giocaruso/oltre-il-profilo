@@ -29,7 +29,7 @@ async function caricaPagina(urlFile) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         sessionStorage.setItem('paginaSalvata', urlFile);
 
-        if (urlFile.includes('motore-quiz-manuale-3-at.html')) {
+        if (urlFile.includes('motore-universale-quiz.html')) {
             setTimeout(inizializzaQuiz, 150);
         }
 
@@ -81,18 +81,40 @@ function sbloccaSimulatore() {
     const pwd = inputPwd.value.trim().toLowerCase();
 
     if (btoa(pwd) === SECRET_HASH) {
+        // Novità: Stampa il "timbro" invisibile nella memoria locale del browser
+        localStorage.setItem('quizAT_sbloccato', 'true');
         caricaPagina('pagine/cruscotto-quiz-manuale-3-at.html');
     } else {
         alert("Password errata! Controlla la chiave indicata nel manuale.");
     }
 }
 
+// NUOVA FUNZIONE: Controlla se l'utente ha già il permesso
+function controllaAccessoQuizAT() {
+    // Controlla se il browser ha già il timbro di sblocco
+    if (localStorage.getItem('quizAT_sbloccato') === 'true') {
+        // Se sì, salta la password e vai dritto al cruscotto
+        caricaPagina('pagine/cruscotto-quiz-manuale-3-at.html');
+    } else {
+        // Se no, mostra la pagina per chiedere la password
+        caricaPagina('pagine/manuale-3-quiz-at.html');
+    }
+}
+// NUOVA FUNZIONE: Resetta l'accesso (Logout)
+function bloccaSimulatore() {
+    // Rimuove il "timbro" dalla memoria
+    localStorage.removeItem('quizAT_sbloccato');
+    alert("Simulatore bloccato con successo.");
+    // Torna alla pagina di inserimento password
+    caricaPagina('pagine/manuale-3-quiz-at.html');
+}
+
 // ==========================================
 // --- LOGICA DI AVVIO DELLE MODALITÀ ---
 // ==========================================
 
-// AGGIORNATO: Aggiunto il parametro opzionale nomeTest per ricevere il titolo dal cruscotto
-function avviaSimulazione(sorgenteJson, modalita, filtro, nomeTest = "") {
+// AGGIORNATO: Aggiunto il parametro tipoSimulazione (default 'studio')
+function avviaSimulazione(sorgenteJson, modalita, filtro, nomeTest = "", tipoSimulazione = "studio") {
     fetch('json/' + sorgenteJson) 
         .then(response => {
             if (!response.ok) throw new Error('Database quiz non trovato.');
@@ -121,17 +143,18 @@ function avviaSimulazione(sorgenteJson, modalita, filtro, nomeTest = "") {
                 return;
             }
 
-            // SALVATAGGIO DEL "SEGNALIBRO" DI RITORNO
+            // SALVATAGGIO DEL "SEGNALIBRO" DI RITORNO E MODALITÀ
             let urlRitorno = 'pagine/cruscotto-quiz-manuale-3-at.html';
             if (sorgenteJson.includes('antincendio')) {
                 urlRitorno = 'pagine/cruscotto-quiz-antincendio-at.html';
             }
             sessionStorage.setItem('cruscottoRitorno', urlRitorno);
+            sessionStorage.setItem('tipoSimulazione', tipoSimulazione);
 
             sessionStorage.setItem('domandeCorrenti', JSON.stringify(selezionate));
             sessionStorage.setItem('titoloQuiz', titoloVisibile); 
 
-            caricaPagina('pagine/motore-quiz-manuale-3-at.html');
+            caricaPagina('pagine/motore-universale-quiz.html');
         })
         .catch(error => {
             console.error(error);
@@ -143,9 +166,11 @@ function avviaSimulazione(sorgenteJson, modalita, filtro, nomeTest = "") {
 // --- LOGICA INTERNA MOTORE QUIZ ---
 // ==========================================
 
+// AGGIORNATO: Smistamento tra Studio ed Esame
 function inizializzaQuiz() {
     const data = sessionStorage.getItem('domandeCorrenti');
     const titolo = sessionStorage.getItem('titoloQuiz'); 
+    const mode = sessionStorage.getItem('tipoSimulazione') || 'studio';
     
     if (!data) {
         tornaAllHub();
@@ -161,9 +186,14 @@ function inizializzaQuiz() {
         titleEl.innerText = titolo;
     }
 
-    mostraDomanda();
+    if (mode === 'esame') {
+        mostraPaginaEsame();
+    } else {
+        mostraDomanda();
+    }
 }
 
+// === BINARIO 1: MODALITÀ STUDIO (Invariato) ===
 function mostraDomanda() {
     const q = currentQuestions[currentIndex];
     const container = document.getElementById('options-container');
@@ -173,12 +203,10 @@ function mostraDomanda() {
     
     if (!q) return;
 
-    // Gestione visibilità Tasto Indietro
     if (btnPrev) {
         btnPrev.style.display = (currentIndex > 0) ? 'inline-block' : 'none';
     }
 
-    // Calcolo Barra di avanzamento
     if (progressBar) {
         const percentuale = (currentIndex / currentQuestions.length) * 100;
         progressBar.style.width = percentuale + '%';
@@ -196,7 +224,6 @@ function mostraDomanda() {
         btn.className = 'option-btn';
         btn.innerText = opzione;
         
-        // Verifica se l'utente aveva già risposto a questa domanda (Ripasso)
         if (q.rispostaUtente !== undefined) {
             btn.disabled = true;
             if (index === q.corretta) {
@@ -205,20 +232,17 @@ function mostraDomanda() {
                 btn.classList.add('wrong');
             }
         } else {
-            // Se è la prima volta che vede la domanda, assegna l'evento click
             btn.onclick = () => verificaRisposta(index, btn);
         }
         
         container.appendChild(btn);
     });
 
-    // Mostra il feedback immediatamente se stiamo ripassando una domanda già risposta
     if (q.rispostaUtente !== undefined) {
         mostraFeedback(q.rispostaUtente === q.corretta, q);
     }
 }
 
-// Funzione helper per gestire la grafica del feedback
 function mostraFeedback(isCorrect, q) {
     const feedbackBox = document.getElementById('feedback-box');
     
@@ -232,7 +256,6 @@ function mostraFeedback(isCorrect, q) {
         document.getElementById('feedback-status').style.color = "#c53030";
     }
 
-    // Gestione gracefully dell'assenza di spiegazioni (es. test antincendio)
     const expElement = document.getElementById('feedback-explanation');
     if (expElement) {
         if (q.spiegazione) {
@@ -247,24 +270,21 @@ function mostraFeedback(isCorrect, q) {
     if (refElement) {
         if (q._ref) {
             refElement.innerText = q._ref;
-            refElement.parentElement.style.display = 'block'; // Mostra l'intera riga se c'è il riferimento
+            refElement.parentElement.style.display = 'block'; 
         } else {
-            refElement.parentElement.style.display = 'none'; // Nasconde l'intera riga (compresa la scritta fissa) se manca
+            refElement.parentElement.style.display = 'none'; 
         }
     }
 
     feedbackBox.style.display = 'block';
-    
     document.getElementById('score-display').innerText = score;
 }
 
 function verificaRisposta(selectedIndex, clickedBtn) {
     const q = currentQuestions[currentIndex];
     
-    // Evita doppi click o alterazioni se c'è già una risposta
     if (q.rispostaUtente !== undefined) return;
     
-    // Salva la scelta dell'utente in memoria
     q.rispostaUtente = selectedIndex;
 
     const buttons = document.querySelectorAll('.option-btn');
@@ -283,32 +303,250 @@ function verificaRisposta(selectedIndex, clickedBtn) {
     mostraFeedback(isCorrect, q);
 }
 
-// NUOVA FUNZIONE: Tasto Indietro
+// === BINARIO 2: NUOVA MODALITÀ ESAME ===
+function mostraPaginaEsame() {
+    const containerMaster = document.getElementById('question-box');
+    
+    // Nasconde il layout a singola domanda
+    document.getElementById('question-text').style.display = 'none';
+    document.getElementById('options-container').style.display = 'none';
+    document.getElementById('feedback-box').style.display = 'none';
+    document.getElementById('score-display').parentElement.style.display = 'none'; // Nasconde il punteggio live
+    
+    // Crea o svuota il contenitore a lista
+    let examContainer = document.getElementById('exam-container');
+    if (!examContainer) {
+        examContainer = document.createElement('div');
+        examContainer.id = 'exam-container';
+        containerMaster.insertBefore(examContainer, containerMaster.firstChild);
+    }
+    examContainer.innerHTML = '';
+
+    const itemsPerPage = 10;
+    const start = currentIndex;
+    const end = Math.min(start + itemsPerPage, currentQuestions.length);
+
+    document.getElementById('progress-text').innerText = `Domande ${start + 1} - ${end} di ${currentQuestions.length}`;
+    
+    const progressBar = document.getElementById('progress-bar-fill'); 
+    if (progressBar) progressBar.style.width = ((end / currentQuestions.length) * 100) + '%';
+
+    // Stampa il blocco di 10 domande
+    for (let i = start; i < end; i++) {
+        const q = currentQuestions[i];
+        const block = document.createElement('div');
+        block.style.marginBottom = '35px';
+        block.style.textAlign = 'left';
+        block.style.borderBottom = '1px solid #e2e8f0';
+        block.style.paddingBottom = '25px';
+
+        const title = document.createElement('h4');
+        title.innerText = `${i + 1}. ${q.domanda}`;
+        title.style.color = 'var(--secondary)';
+        title.style.fontSize = '1.1rem';
+        title.style.marginBottom = '15px';
+        block.appendChild(title);
+
+        const optsDiv = document.createElement('div');
+        optsDiv.style.display = 'flex';
+        optsDiv.style.flexDirection = 'column';
+        optsDiv.style.gap = '10px';
+
+        q.opzioni.forEach((opz, optIndex) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opz;
+            btn.style.textAlign = 'left';
+            
+            // Applica stile neutro se l'utente aveva già selezionato l'opzione
+            if (q.rispostaUtente === optIndex) {
+                btn.style.borderColor = 'var(--primary)';
+                btn.style.backgroundColor = '#e1f5fe'; 
+            }
+            
+            // Nessuna spiegazione o feedback, solo selezione visiva
+            btn.onclick = () => {
+                q.rispostaUtente = optIndex;
+                Array.from(optsDiv.children).forEach(b => {
+                    b.style.borderColor = '#cbd5e0'; 
+                    b.style.backgroundColor = '#fff';
+                });
+                btn.style.borderColor = 'var(--primary)';
+                btn.style.backgroundColor = '#e1f5fe';
+            };
+            optsDiv.appendChild(btn);
+        });
+        block.appendChild(optsDiv);
+        examContainer.appendChild(block);
+    }
+
+    // Gestione bottoni di navigazione in basso
+    const btnPrev = document.getElementById('btn-prev'); 
+    if (btnPrev) btnPrev.style.display = (start > 0) ? 'inline-block' : 'none';
+
+    // Trasforma il tasto Avanti nell'ultimo foglio
+    const btnNext = document.querySelector('button[onclick="prossimaDomanda()"]');
+    if (btnNext) {
+        if (end >= currentQuestions.length) {
+            btnNext.innerText = "Vedi Risultati 🏆";
+            btnNext.style.backgroundColor = "#ff5e00"; // Colore di evidenza
+            btnNext.style.color = "#fff";
+        } else {
+            btnNext.innerText = "Continua ➡️";
+            btnNext.style.backgroundColor = ""; 
+            btnNext.style.color = "";
+        }
+    }
+}
+
+// === NAVIGAZIONE DINAMICA E RISULTATI ===
+
 function domandaPrecedente() {
-    if (currentIndex > 0) {
-        currentIndex--;
-        mostraDomanda();
+    const mode = sessionStorage.getItem('tipoSimulazione');
+    if (mode === 'esame') {
+        if (currentIndex >= 10) {
+            currentIndex -= 10;
+            mostraPaginaEsame();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    } else {
+        if (currentIndex > 0) {
+            currentIndex--;
+            mostraDomanda();
+        }
     }
 }
 
 function prossimaDomanda() {
-    currentIndex++;
-    if (currentIndex < currentQuestions.length) {
-        mostraDomanda();
+    const mode = sessionStorage.getItem('tipoSimulazione');
+    if (mode === 'esame') {
+        currentIndex += 10;
+        if (currentIndex < currentQuestions.length) {
+            mostraPaginaEsame();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            mostraRisultatoFinale();
+        }
     } else {
-        mostraRisultatoFinale();
+        currentIndex++;
+        if (currentIndex < currentQuestions.length) {
+            mostraDomanda();
+        } else {
+            mostraRisultatoFinale();
+        }
     }
 }
 
 function mostraRisultatoFinale() {
+    const mode = sessionStorage.getItem('tipoSimulazione');
+    
+    // Completa la barra
     const progressBar = document.getElementById('progress-bar-fill'); 
-    if (progressBar) progressBar.style.width = '100%'; // Completa la barra
+    if (progressBar) progressBar.style.width = '100%'; 
 
-    document.getElementById('question-box').style.display = 'none';
+    // Nasconde box feedback e navigazione per entrambe le modalità
     document.getElementById('feedback-box').style.display = 'none';
+    const navBox = document.getElementById('navigation-box');
+    if (navBox) navBox.style.display = 'none';
+
+    // Mostra il trofeo dei risultati
     document.getElementById('result-box').style.display = 'block';
+    // Mostra il tasto finale a fondo pagina
+    const fineBox = document.getElementById('fine-esame-box');
+    if (fineBox) fineBox.style.display = 'block';
+
+    if (mode === 'esame') {
+        // Calcola il punteggio finale
+        score = currentQuestions.filter(q => q.rispostaUtente === q.corretta).length;
+
+        // Costruisce il "Foglio degli Errori"
+        const containerMaster = document.getElementById('question-box');
+        containerMaster.style.display = 'block'; // Assicura che sia visibile
+        
+        let examContainer = document.getElementById('exam-container');
+        if (!examContainer) {
+            examContainer = document.createElement('div');
+            examContainer.id = 'exam-container';
+            containerMaster.insertBefore(examContainer, containerMaster.firstChild);
+        }
+        examContainer.innerHTML = ''; // Svuota l'esame precedente
+
+        // Titolo di revisione
+        const intestazione = document.createElement('h3');
+        intestazione.innerText = "📝 Foglio degli Errori";
+        intestazione.style.color = 'var(--secondary)';
+        intestazione.style.marginTop = '40px';
+        intestazione.style.marginBottom = '30px';
+        intestazione.style.textAlign = 'center';
+        intestazione.style.borderBottom = '2px dashed #cbd5e0';
+        intestazione.style.paddingBottom = '15px';
+        examContainer.appendChild(intestazione);
+
+        // Controllo se ci sono errori da mostrare
+        if (score === currentQuestions.length) {
+            const messaggioPerfetto = document.createElement('p');
+            messaggioPerfetto.innerText = "🎉 Complimenti! Hai risposto correttamente a tutte le domande. Nessun errore da revisionare.";
+            messaggioPerfetto.style.fontSize = '1.2rem';
+            messaggioPerfetto.style.color = '#2f855a';
+            messaggioPerfetto.style.fontWeight = 'bold';
+            messaggioPerfetto.style.textAlign = 'center';
+            examContainer.appendChild(messaggioPerfetto);
+        } else {
+            // Stampa SOLO le domande con errori, mantenendo la numerazione originale
+            currentQuestions.forEach((q, i) => {
+                // SE LA RISPOSTA E' CORRETTA, SALTA E NON STAMPARE
+                if (q.rispostaUtente === q.corretta) return;
+
+                const block = document.createElement('div');
+                block.style.marginBottom = '35px';
+                block.style.textAlign = 'left';
+                block.style.borderBottom = '1px solid #e2e8f0';
+                block.style.paddingBottom = '25px';
+
+                const title = document.createElement('h4');
+                title.innerText = `${i + 1}. ${q.domanda}`;
+                title.style.color = 'var(--secondary)';
+                title.style.fontSize = '1.1rem';
+                title.style.marginBottom = '15px';
+                block.appendChild(title);
+
+                const optsDiv = document.createElement('div');
+                optsDiv.style.display = 'flex';
+                optsDiv.style.flexDirection = 'column';
+                optsDiv.style.gap = '10px';
+
+                q.opzioni.forEach((opz, optIndex) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = opz;
+                    btn.style.textAlign = 'left';
+                    btn.disabled = true; // Disabilita i click
+
+                    // Logica dei colori
+                    if (optIndex === q.corretta) {
+                        btn.classList.add('correct'); // Evidenzia la risposta esatta di verde
+                    } else if (q.rispostaUtente === optIndex) {
+                        btn.classList.add('wrong'); // Evidenzia l'errore dell'utente di rosso
+                    }
+
+                    optsDiv.appendChild(btn);
+                });
+                block.appendChild(optsDiv);
+                examContainer.appendChild(block);
+            });
+        }
+
+    } else {
+        // Modalità Studio: Nasconde solo il box delle domande
+        document.getElementById('question-box').style.display = 'none';
+    }
+
+    // Scrive i punteggi
     document.getElementById('final-score').innerText = score;
     document.getElementById('total-questions').innerText = currentQuestions.length;
+
+    // Riporta la visuale morbidamente in cima per mostrare il trofeo!
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ==========================================
